@@ -165,7 +165,7 @@
                EXperiencia
             ======================================== -->
             <div>
-                <h2 class="text-xl lg:text-3xl text-rojo font-bold">Experiencia</h2>
+                <h2 class="text-2xl text-rojo font-bold">Experiencia</h2>
                 <ul class="text-sm list-disc">
                     @foreach (json_decode($selectedCurriculum->experience) as $experience)
                         <li class="ml-5">{{ $experience }}</li>
