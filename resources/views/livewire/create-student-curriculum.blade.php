@@ -125,10 +125,10 @@
             </x-grid-container>
         </div>
 
-        {{-- Datos Experiencia --}}
+        {{-- Datos Experiencia y Proyectos --}}
         <div>
+            {{-- Datos Experiencia --}}
             <x-secondary-title>Experiencia</x-secondary-title>
-            {{-- Experiencia y Proyectos --}}
             <x-grid-container>
                 {{-- Experiencia --}}
                 <div class="w-full">

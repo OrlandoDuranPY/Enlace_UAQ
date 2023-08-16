@@ -45,7 +45,13 @@ class CreateTeacherCurriculum extends Component
     // Tipo de usuario
     public $type;
 
-
+    public function mount()
+    {
+        $this->addInput('study_level');
+        $this->addInput('academic_achievements');
+        $this->addInput('experience');
+        $this->addInput('projects');
+    }
 
     /* ========================================
     Validacion de datos
@@ -78,6 +84,97 @@ class CreateTeacherCurriculum extends Component
         // Tipo de usuario
         'type' => ['required', 'numeric', 'between:1,3']
     ];
+
+
+    /* ========================================
+    Funcion para agregar inputs nuevos
+    ========================================= */
+    public function addInput($value)
+    {
+        // Agregar Logro Academico
+        if ($value === 'study_level') {
+            if (count($this->study_level) < 5) {
+                $this->study_level[] = '';
+                $this->studyLevelCounter++;
+            }
+        }
+        // Agregar Experiencia
+        elseif ($value === 'experience') {
+            if (count($this->experience) < 5) {
+                $this->experience[] = '';
+                $this->experienceCounter++;
+            }
+        }
+        // Agregar Experiencia
+        elseif ($value === 'academic_achievements') {
+            if (count($this->academic_achievements) < 5) {
+                $this->academic_achievements[] = '';
+                $this->achievementsCounter++;
+            }
+        }
+        // Agregar Proyecto
+        elseif ($value === 'projects') {
+            if (count($this->projects) < 5) {
+                $this->projects[] = '';
+                $this->projectsCounter++;
+            }
+        }
+        // Agregar Referencia
+        elseif ($value === 'references') {
+            if (count($this->references) < 3) {
+                $this->references[] = [
+                    'name' => '',
+                    'email' => '',
+                    'phone' => '',
+                ];
+            }
+        }
+    }
+
+    /* ========================================
+    Funcion para remover inputs agregados
+    ========================================= */
+    public function removeInput($value, $key)
+    {
+        // Remover Nivel de Estudios
+        if ($value === 'study_level') {
+            if (count($this->study_level) > 1) {
+                unset($this->study_level[$key]);
+                $this->study_level = array_values($this->study_level);
+                $this->achievementsCounter--;
+            }
+        }
+        // Remover Logros Academicos
+        elseif ($value === 'academic_achievements') {
+            if (count($this->academic_achievements) > 1) {
+                unset($this->academic_achievements[$key]);
+                $this->academic_achievements = array_values($this->academic_achievements);
+                $this->achievementsCounter--;
+            }
+        }
+        // Remover Experiencia
+        elseif ($value === 'experience') {
+            if (count($this->experience) > 1) {
+                unset($this->experience[$key]);
+                $this->experience = array_values($this->experience);
+                $this->experienceCounter--;
+            }
+        }
+        // Remover Proyecto
+        elseif ($value === 'projects') {
+            if (count($this->projects) > 1) {
+                unset($this->projects[$key]);
+                $this->projects = array_values($this->projects);
+                $this->projectsCounter--;
+            }
+        }
+        // Remover Referencia
+        elseif ($value === 'references') {
+            if (count($this->references) > 1) {
+                unset($this->references[$key]);
+            }
+        }
+    }
 
     public function render()
     {
