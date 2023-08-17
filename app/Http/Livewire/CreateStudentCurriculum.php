@@ -96,7 +96,7 @@ class CreateStudentCurriculum extends Component
     public function createCurriculum()
     {
         // Asignar el tipo de usuario (estudiante/egresado)
-        if ($this->semester === 10) {
+        if ($this->semester == 10) {
             $this->type = 2;
         } else {
             $this->type = 1;

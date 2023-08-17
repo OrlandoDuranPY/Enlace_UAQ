@@ -31,7 +31,7 @@ class CurriculaSeeder extends Seeder
                 ["name" => "Verónica Sánchez García", "email" => "veronica@email.com", "phone" => "4429876543"],
                 ["name" => "Manuel Gómez González", "email" => "manuel@email.com", "phone" => "4428765432"]
             ]),            
-            'type' => 1,
+            'type' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
