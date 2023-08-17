@@ -3,6 +3,9 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\Activity;
+use App\Models\Curriculum;
+use Illuminate\Support\Facades\Auth;
 
 class CreateTeacherCurriculum extends Component
 {
@@ -85,6 +88,72 @@ class CreateTeacherCurriculum extends Component
         'type' => ['required', 'numeric', 'between:1,3']
     ];
 
+
+    /* ========================================
+    Crear curriculum y subirlo a la base de datos
+    ========================================= */
+    public function createCurriculum()
+    {
+        // Asignar el tipo de usuario (Docente)
+        $this->type = 3;
+
+        // Validación de los datos 
+        $data = $this->validate();
+
+        // Guardar el curriculum en la base de datos
+        $curriculum = Curriculum::create([
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'about_me' => $data['about_me'],
+            'study_level' => json_encode($data['study_level']),
+            'degree' => $data['degree'],
+            'academic_achievements' => json_encode($data['academic_achievements']),
+            'experience' => json_encode($data['experience']),
+            'projects' => json_encode($data['projects']),
+            'references' => json_encode($data['references']),
+            'type' => $data['type']
+        ]);
+
+        // ID de la persona autenticada
+        $user_id = Auth::id();
+        // ID del curriculum
+        $curriculum_id = $curriculum->id;
+
+        // Crear una nueva accion en la tabla historial
+        Activity::create([
+            'name' => 'Agregó curriculum docente',
+            'users_id' => $user_id,
+            'curricula_id' => $curriculum_id
+        ]);
+
+        // Emitir evento de mensaje de exito
+        $this->emit('curriculum_success', '¡Curriculum creado exitosamente!');
+
+        // Resetear el formulario
+        $this->reset([
+            'studyLevelCounter',
+            'achievementsCounter',
+            'experienceCounter',
+            'projectsCounter',
+            'referenceCounter',
+            'name',
+            'last_name',
+            'email',
+            'phone',
+            'about_me',
+            'study_level',
+            'degree',
+            'academic_achievements',
+            'experience',
+            'projects',
+            'references',
+            'type',
+        ]);
+        // Resetear las propiedaes faltantes
+        $this->mount();
+    }
 
     /* ========================================
     Funcion para agregar inputs nuevos
