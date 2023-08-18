@@ -2,19 +2,18 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Activity;
 use App\Models\Curriculum;
-use App\Models\StudyProgram;
-use App\Models\AcademicProgram;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
-class UpdateStudentCurriculum extends Component
+class UpdateTeacherCurriculum extends Component
 {
     /* ========================================
     Atributos
     ========================================= */
     // Contadores
+    public $studyLevelCounter = 1;
     public $achievementsCounter = 1;
     public $experienceCounter = 1;
     public $projectsCounter = 1;
@@ -30,11 +29,10 @@ class UpdateStudentCurriculum extends Component
     public $phone;
     public $about_me;
 
-    // Datos Academicos
-    public $study_programs_id;
-    public $semester;
+    // Datos academicos
+    public $study_level = [];
+    public $degree;
     public $academic_achievements = [];
-    public $academic_programs_id;
 
     // Experiencia
     public $experience = [];
@@ -52,7 +50,6 @@ class UpdateStudentCurriculum extends Component
     // Tipo de usuario
     public $type;
 
-
     /* ========================================
     Validacion de datos
     ========================================= */
@@ -63,12 +60,12 @@ class UpdateStudentCurriculum extends Component
         'email' => ['required', 'email', 'max:255'],
         'phone' => ['required', 'numeric'],
         'about_me' => ['required', 'string', 'max:500'],
-        // Datos academicos
-        'study_programs_id' => ['required', 'numeric', 'between:1,16'],
-        'semester' => ['required', 'numeric', 'between:1,10'],
+        // Datos Academico
+        'study_level.0' => ['required', 'string'],
+        'study_level.*' => ['required', 'string'],
+        'degree' => ['required', 'string'],
         'academic_achievements.0' => ['nullable', 'string'],
         'academic_achievements.*' => ['nullable', 'string'],
-        'academic_programs_id' => ['required', 'numeric', 'between:1,2'],
         // Datos experiencia
         'experience.0' => ['nullable', 'string'],
         'experience.*' => ['nullable', 'string'],
@@ -85,26 +82,26 @@ class UpdateStudentCurriculum extends Component
         'type' => ['required', 'numeric', 'between:1,3']
     ];
 
-
     public function mount(Curriculum $curriculum)
     {
-        // Montar campos para agregar inputs
+        // Mostrar campos para agregar atributos
+        $this->addInput('study_level');
         $this->addInput('academic_achievements');
         $this->addInput('experience');
         $this->addInput('projects');
 
-        // Montar datos del curriculum en el formulario
+        // Mostrar datos del curriculum en el formulario
         $this->curriculum_id = $curriculum->id;
         $this->name = $curriculum->name;
         $this->last_name = $curriculum->last_name;
         $this->email = $curriculum->email;
         $this->phone = $curriculum->phone;
         $this->about_me = $curriculum->about_me;
-        $this->study_programs_id = $curriculum->study_programs_id;
-        $this->semester = $curriculum->semester;
+        $this->study_level = $curriculum->study_level;
+        $this->toArray('study_level');
+        $this->degree = $curriculum->degree;
         $this->academic_achievements = $curriculum->academic_achievements;
         $this->toArray('academic_achievements');
-        $this->academic_programs_id = $curriculum->academic_programs_id;
         $this->experience = $curriculum->experience;
         $this->toArray('experience');
         $this->projects = $curriculum->projects;
@@ -112,7 +109,6 @@ class UpdateStudentCurriculum extends Component
         $this->references = $curriculum->references;
         $this->toArray('references');
     }
-
 
     /* ========================================
     Convertir JSON a arreglo
@@ -139,10 +135,10 @@ class UpdateStudentCurriculum extends Component
     public function addInput($value)
     {
         // Agregar Logro Academico
-        if ($value === 'academic_achievements') {
-            if (count($this->academic_achievements) < 5) {
-                $this->academic_achievements[] = '';
-                $this->achievementsCounter++;
+        if ($value === 'study_level') {
+            if (count($this->study_level) < 5) {
+                $this->study_level[] = '';
+                $this->studyLevelCounter++;
             }
         }
         // Agregar Experiencia
@@ -150,6 +146,13 @@ class UpdateStudentCurriculum extends Component
             if (count($this->experience) < 5) {
                 $this->experience[] = '';
                 $this->experienceCounter++;
+            }
+        }
+        // Agregar Experiencia
+        elseif ($value === 'academic_achievements') {
+            if (count($this->academic_achievements) < 5) {
+                $this->academic_achievements[] = '';
+                $this->achievementsCounter++;
             }
         }
         // Agregar Proyecto
@@ -176,8 +179,16 @@ class UpdateStudentCurriculum extends Component
     ========================================= */
     public function removeInput($value, $key)
     {
-        // Remover Logro Academico
-        if ($value === 'academic_achievements') {
+        // Remover Nivel de Estudios
+        if ($value === 'study_level') {
+            if (count($this->study_level) > 1) {
+                unset($this->study_level[$key]);
+                $this->study_level = array_values($this->study_level);
+                $this->achievementsCounter--;
+            }
+        }
+        // Remover Logros Academicos
+        elseif ($value === 'academic_achievements') {
             if (count($this->academic_achievements) > 1) {
                 unset($this->academic_achievements[$key]);
                 $this->academic_achievements = array_values($this->academic_achievements);
@@ -209,18 +220,14 @@ class UpdateStudentCurriculum extends Component
     }
 
     /* ========================================
-    EDITAR EL CURRICULUM
+    EDITAR CURRICULUM
     ========================================= */
     public function updateCurriculum()
     {
-        //Asignar el tipo de usuario (estudiante: 1/egresado: 2)
-        if ($this->semester == 10) {
-            $this->type = 2;
-        } else {
-            $this->type = 1;
-        }
+        // Asignar el tipo de usuario (docente: 3)
+        $this->type = 3;
 
-        // Validar los datos
+        // Validar datos
         $data = $this->validate();
 
         // Encontrar el curriculum que se va a editar
@@ -233,10 +240,9 @@ class UpdateStudentCurriculum extends Component
         $curriculum->phone = $data['phone'];
         $curriculum->about_me = $data['about_me'];
 
-        $curriculum->study_programs_id = $data['study_programs_id'];
-        $curriculum->semester = $data['semester'];
+        $curriculum->study_level = json_encode($data['study_level']);
+        $curriculum->degree = $data['degree'];
         $curriculum->academic_achievements = json_encode($data['academic_achievements']);
-        $curriculum->academic_programs_id = $data['academic_programs_id'];
 
         $curriculum->experience = json_encode($data['experience']);
         $curriculum->projects = json_encode($data['projects']);
@@ -253,7 +259,7 @@ class UpdateStudentCurriculum extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Actualizó curriculum estudiante',
+            'name' => 'Actualizó curriculum de docente',
             'users_id' => $user_id,
             'curricula_id' => $curriculum_id
         ]);
@@ -263,6 +269,7 @@ class UpdateStudentCurriculum extends Component
 
         // Resetear el formulario
         $this->reset([
+            'studyLevelCounter',
             'achievementsCounter',
             'experienceCounter',
             'projectsCounter',
@@ -272,27 +279,21 @@ class UpdateStudentCurriculum extends Component
             'email',
             'phone',
             'about_me',
-            'study_programs_id',
-            'semester',
+            'study_level',
+            'degree',
             'academic_achievements',
-            'academic_programs_id',
             'experience',
             'projects',
             'references',
             'type',
         ]);
 
-        // Resetear las propiedaes faltantes
+        // Resetear las propiedades faltantes
         $this->mount(Curriculum::find($this->curriculum_id));
     }
 
     public function render()
     {
-        $study_programs = StudyProgram::all();
-        $academic_programs = AcademicProgram::all();
-        return view('livewire.update-student-curriculum', [
-            'study_programs' => $study_programs,
-            'academic_programs' => $academic_programs
-        ]);
+        return view('livewire.update-teacher-curriculum');
     }
 }

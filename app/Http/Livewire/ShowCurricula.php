@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Curriculum;
 use Livewire\Component;
+use App\Models\Activity;
+use App\Models\Curriculum;
+use Illuminate\Support\Facades\Auth;
 
 class ShowCurricula extends Component
 {
@@ -12,6 +14,8 @@ class ShowCurricula extends Component
     public $term;
     public $user;
     protected $listeners = ['deleteCurriculum', 'filterTerms' => 'filterCurricula'];
+    // Propiedades del curriculum
+    public $curriculum_id;
 
     /* ========================================
     Asignar valores del filtro de busqueda a
@@ -40,6 +44,16 @@ class ShowCurricula extends Component
     {
         $curriculum->delete();
         $this->selectedCurriculum = '';
+
+        // ID de la persona autenticada
+        $user_id = Auth::id();
+
+        // Crear una nueva accion en la tabla de Actividades
+        Activity::create([
+            'name' => 'Borró curriculum',
+            'users_id' => $user_id,
+            'curricula_id' => $curriculum->id
+        ]);
     }
 
     /* ========================================

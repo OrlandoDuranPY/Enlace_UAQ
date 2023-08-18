@@ -30,6 +30,7 @@ Route::get('/curriculums', [CurriculaController::class, 'index'])->name('curricu
 Route::get('/crear/curriculum-estudiante', [CurriculaController::class, 'createStudentCurriculum'])->name('curricula.student.create');
 Route::get('/actualizar/curriculum-estudiante/{curriculum}', [CurriculaController::class, 'updateStudentCurriculum'])->name('curricula.student.update');
 Route::get('/crear/curriculum-docente', [CurriculaController::class, 'createTeacherCurriculum'])->name('curricula.teacher.create');
+Route::get('/actualizar/curriculum-docente/{curriculum}', [CurriculaController::class, 'updateTeacherCurriculum'])->name('curricula.teacher.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -92,7 +92,7 @@
                     <div class="absolute top-0 left-0 flex gap-2">
                         {{-- Editar y eliminar Estudiantes --}}
                         @if ($selectedCurriculum->type === 3)
-                            <a href="#"><img
+                            <a href="{{route('curricula.teacher.update', $selectedCurriculum->id)}}"><img
                                     class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                         @else
                             <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
@@ -232,7 +232,7 @@
                         <div class="absolute top-0 left-0 flex gap-2">
                             {{-- Editar y eliminar Estudiantes --}}
                             @if ($selectedCurriculum->type === 3)
-                                <a href="#"><img
+                                <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
                                         class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                             @else
                                 <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
