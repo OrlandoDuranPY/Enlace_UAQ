@@ -123,7 +123,7 @@ class CreateTeacherCurriculum extends Component
 
         // Crear una nueva accion en la tabla historial
         Activity::create([
-            'name' => 'Agregó curriculum docente',
+            'name' => 'Agregó curriculum de docente',
             'users_id' => $user_id,
             'curricula_id' => $curriculum_id
         ]);

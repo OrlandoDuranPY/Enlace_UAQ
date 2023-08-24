@@ -40,6 +40,10 @@ return new class extends Migration
             ========================================= */
             $table->json('references');
             $table->integer('type'); // Estudiante:1 / Egresado:2 /Docente:3
+            /* ========================================
+            Activo o Desactivo
+            ========================================= */
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

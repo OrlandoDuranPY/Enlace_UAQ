@@ -129,7 +129,7 @@ class CreateStudentCurriculum extends Component
 
         // Crear una nueva accion en la tabla historial
         Activity::create([
-            'name' => 'Agregó curriculum estudiante',
+            'name' => 'Agregó curriculum de estudiante',
             'users_id' => $user_id,
             'curricula_id' => $curriculum_id
         ]);

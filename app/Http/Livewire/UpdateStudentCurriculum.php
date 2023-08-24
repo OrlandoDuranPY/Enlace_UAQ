@@ -253,7 +253,7 @@ class UpdateStudentCurriculum extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Actualizó curriculum estudiante',
+            'name' => 'Actualizó curriculum de estudiante',
             'users_id' => $user_id,
             'curricula_id' => $curriculum_id
         ]);
