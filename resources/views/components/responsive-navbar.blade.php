@@ -6,13 +6,13 @@
         <div class="flex items-center md:order-2">
             @auth
                 <!-- ========================================
-                                Dropdown de Session
-                            ======================================== -->
+                                    Dropdown de Session
+                                ======================================== -->
                 <x-session-dropdown />
             @else
                 <!-- ========================================
-                               Enlace para iniciar sesion
-                            ======================================== -->
+                                   Enlace para iniciar sesion
+                                ======================================== -->
                 <div>
                     <a href="{{ route('login') }}" class="font-semibold text-white mr-2 md:mr-0"><i
                             class="fas fa-user"></i></a>
@@ -45,13 +45,13 @@
                 {{-- Enlace Vacantes --}}
                 <li>
                     <a class="block py-2 pl-3 pr-4 rounded font-semibold uppercase md:p-0 hover:bg-rojo hover:bg-opacity-50 hover:text-white"
-                        href="#">Vacantes</a>
+                        href="{{ route('vacancies.index') }}">Vacantes</a>
                 </li>
                 @auth
                     <!-- ========================================
-                               Dropdown para agregar curriculums
-                               y vacantes
-                            ======================================== -->
+                                   Dropdown para agregar curriculums
+                                   y vacantes
+                                ======================================== -->
                     <li>
                         <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                             class="text-gray-700 md:text-white uppercase font-semibold flex items-center justify-between w-full py-2 pl-3 pr-4 rounded hover:bg-rojo hover:bg-opacity-50 hover:text-white md:hover:bg-transparent md:border-0 md:p-0 md:w-auto">Registrar<svg
@@ -77,7 +77,7 @@
                                 </li>
                                 {{-- Agregar Vacante --}}
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('vacancies.create') }}"
                                         class="block px-4 py-2 hover:bg-rojo hover:bg-opacity-50 hover:text-white font-semibold uppercase">Vacante</a>
                                 </li>
                         </div>

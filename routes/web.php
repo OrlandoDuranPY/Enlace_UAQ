@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CurriculaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,12 @@ Route::get('/crear/curriculum-estudiante', [CurriculaController::class, 'createS
 Route::get('/actualizar/curriculum-estudiante/{curriculum}', [CurriculaController::class, 'updateStudentCurriculum'])->name('curricula.student.update');
 Route::get('/crear/curriculum-docente', [CurriculaController::class, 'createTeacherCurriculum'])->name('curricula.teacher.create');
 Route::get('/actualizar/curriculum-docente/{curriculum}', [CurriculaController::class, 'updateTeacherCurriculum'])->name('curricula.teacher.update');
+
+/* ========================================
+Rutas de vacantes
+========================================= */
+Route::get('/vacantes', [VacancyController:: class, 'index'])->name('vacancies.index');
+Route::get('/crear/vacante', [VacancyController::class, 'createVacancy'])->name('vacancies.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
