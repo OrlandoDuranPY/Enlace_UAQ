@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('users_id');
-            $table->foreignId('curricula_id');
+            $table->foreignId('curricula_id')->nullable();
+            $table->foreignId('vacancies_id')->nullable();
             $table->timestamps();
         });
     }

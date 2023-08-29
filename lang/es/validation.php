@@ -235,6 +235,11 @@ return [
         'semester' => 'semestre',
         'study_programs_id' => 'programa de estudios',
         'academic_programs_id' => 'programa académico',
-
+        // Campos de vacante
+        'company' => 'empresa',
+        'location' => 'ubicación',
+        'job_title' => 'nombre del puesto',
+        'salario' => 'salary',
+        'description' => 'descripción'
     ]
 ];

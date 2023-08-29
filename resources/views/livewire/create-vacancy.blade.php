@@ -75,8 +75,8 @@
 
             function updateCounter() {
                 var length = aboutMeInput.value.length;
-                aboutMeCounter.textContent = length + "/500";
-                aboutMeCounter.classList.toggle('text-red-500', length > 500);
+                aboutMeCounter.textContent = length + "/1500";
+                aboutMeCounter.classList.toggle('text-red-500', length > 1500);
             }
         });
     </script>

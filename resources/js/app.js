@@ -89,4 +89,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    /* ========================================
+    Section Comment
+    ========================================= */
+    Livewire.on("vacancy_success", (message) => {
+        Toast.fire({
+            icon: "success",
+            title: message,
+        });
+    });
 });

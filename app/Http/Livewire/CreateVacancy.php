@@ -24,7 +24,7 @@ class CreateVacancy extends Component
     protected $rules = [
         // Datos de la empresa
         'company' => ['required', 'string', 'min:1', 'max:50'],
-        'location' => ['requried', 'string', 'min:5', 'max:100'],
+        'location' => ['required', 'string', 'min:5', 'max:100'],
         // Datos de la vacante
         'job_title' => ['required', 'string', 'min:5', 'max:100'],
         'salary' => ['nullable', 'string', 'max:50'],
@@ -49,16 +49,17 @@ class CreateVacancy extends Component
 
         // ID de la persona autenticada
         $user_id = Auth::id();
-        
+
         // ID de la vacante
         $vacancy_id = $vacancy->id;
+        // dd($vacancy->id);
 
         // Crear una nueva accion en la tabla historial
-        // Activity::create([
-        //     'name' => 'Agregó una vacante',
-        //     'users_id' => $user_id,
-        //     'vacancy_id' => $vacancy_id
-        // ]);
+        Activity::create([
+            'name' => 'Agregó una vacante',
+            'users_id' => $user_id,
+            'vacancies_id' => $vacancy_id
+        ]);
 
         // Emitir evento de mensaje de exito
         $this->emit('vacancy_success', '¡Vacante creada exitosamente!');
