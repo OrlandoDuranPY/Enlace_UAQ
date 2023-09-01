@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
 class VacancyController extends Controller
@@ -18,5 +19,14 @@ class VacancyController extends Controller
     ========================================= */
     public function createVacancy(){
         return view('vacancies.create');
+    }
+
+    /* ========================================
+    Actualizar Vacante
+    ========================================= */
+    public function updateVacancy(Vacancy $vacancy){
+        return view('vacancies.update', [
+            'vacancy' => $vacancy
+        ]);
     }
 }

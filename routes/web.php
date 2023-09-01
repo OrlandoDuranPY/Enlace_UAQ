@@ -38,6 +38,7 @@ Rutas de vacantes
 ========================================= */
 Route::get('/vacantes', [VacancyController:: class, 'index'])->name('vacancies.index');
 Route::get('/crear/vacante', [VacancyController::class, 'createVacancy'])->name('vacancies.create');
+Route::get('/actualizar/vacante/{vacancy}', [VacancyController::class, 'updateVacancy'])->name('vacancies.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

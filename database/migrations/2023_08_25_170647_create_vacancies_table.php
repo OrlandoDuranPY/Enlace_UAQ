@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('salary');
             $table->text('description');
+            $table->text('observations');
             /* ========================================
             Activo o Desactivo
             ========================================= */

@@ -54,6 +54,16 @@
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
+
+            {{-- Observaciones --}}
+            <div class="w-full">
+                <x-label for="observations">Observaciones</x-label>
+                <x-text-area wire:model="observations" class="w-full" id="observations" :placeholder="'Escriba puntos que quiera resaltar de la vacante'" wire:ignore />
+                <p class="text-right text-sm text-gray-300 font-semibold"><span id="observations_counter"
+                        wire:ignore></span></p>
+                <x-input-error :messages="$errors->get('observations')" class="mt-2" />
+            </div>
+
         </div>
 
         <x-primary-button class="block mx-auto">Finalizar registro</x-primary-button>
@@ -64,20 +74,36 @@
                                         Contador de caracteres para textArea
                                         ========================================= */
         document.addEventListener('livewire:load', function() {
-            var aboutMeInput = document.getElementById('description');
-            var aboutMeCounter = document.getElementById('description_counter');
+            let aboutMeInput = document.getElementById('description');
+            let aboutMeCounter = document.getElementById('description_counter');
+            let observationsInput = document.getElementById('observations');
+            let observationsCounter = document.getElementById('observations_counter');
 
             updateCounter();
+            updateCounter2();
 
             aboutMeInput.addEventListener('input', function() {
                 updateCounter();
             });
 
+            observationsInput.addEventListener('input', function(){
+                updateCounter2();
+            });
+
             function updateCounter() {
-                var length = aboutMeInput.value.length;
+                let length = aboutMeInput.value.length;
+
                 aboutMeCounter.textContent = length + "/1500";
                 aboutMeCounter.classList.toggle('text-red-500', length > 1500);
             }
+
+            function updateCounter2() {
+                let length2 = observationsInput.value.length;
+
+                observationsCounter.textContent = length2 + "/500";
+                observationsCounter.classList.toggle('text-red-500', length > 500);
+            }
+
         });
     </script>
 
