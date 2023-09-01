@@ -65,7 +65,7 @@ class CreateVacancy extends Component
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('vacancy_success', '¡Vacante creada exitosamente!');
+        $this->emit('create_success', '¡Vacante creada exitosamente!');
 
         // Resetear el formulario
         $this->reset([

@@ -97,7 +97,7 @@ class CreateTeacherCurriculum extends Component
         // Asignar el tipo de usuario (Docente)
         $this->type = 3;
 
-        // Validación de los datos 
+        // Validación de los datos
         $data = $this->validate();
 
         // Guardar el curriculum en la base de datos
@@ -129,7 +129,7 @@ class CreateTeacherCurriculum extends Component
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('curriculum_success', '¡Curriculum creado exitosamente!');
+        $this->emit('create_success', '¡Curriculum creado exitosamente!');
 
         // Resetear el formulario
         $this->reset([

@@ -265,7 +265,7 @@ class UpdateTeacherCurriculum extends Component
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('curriculum_update_success', '¡Curriculum actualizado exitosamente!');
+        $this->emit('update_success', '¡Curriculum actualizado exitosamente!');
 
         // Resetear el formulario
         $this->reset([

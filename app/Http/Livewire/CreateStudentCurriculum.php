@@ -135,7 +135,7 @@ class CreateStudentCurriculum extends Component
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('curriculum_success', '¡Curriculum creado exitosamente!');
+        $this->emit('create_success', '¡Curriculum creado exitosamente!');
 
         // Resetear el formulario
         $this->reset([

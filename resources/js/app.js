@@ -45,9 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* ========================================
-    Evento: Crear curriculum de estudiante
+    Toast: Muestra mensaje de exito al crear
+    un curriculum o vacante
     ========================================= */
-    Livewire.on("curriculum_success", (message) => {
+    Livewire.on("create_success", (message) => {
         Toast.fire({
             icon: "success",
             title: message,
@@ -55,9 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* ========================================
-    Evento: Actualizar curriculum de estudiante
+    Toast: Muestra mensaje de exito al actualizar
+    un curriculum o vacante
     ========================================= */
-    Livewire.on("curriculum_update_success", (message) => {
+    Livewire.on("update_success", (message) => {
         Toast.fire({
             icon: "success",
             title: message,
@@ -90,13 +92,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    /* ========================================
-    Section Comment
-    ========================================= */
-    Livewire.on("vacancy_success", (message) => {
-        Toast.fire({
-            icon: "success",
-            title: message,
-        });
-    });
 });
