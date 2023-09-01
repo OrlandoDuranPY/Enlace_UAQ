@@ -60,7 +60,7 @@
 
     @if ($selectedVacancy)
     {{-- Preview para pantallas grandes --}}
-        <x-lg-preview>
+        <x-lg-preview :selectedVacancy='$selectedVacancy'>
 
         </x-lg-preview>
     @else
