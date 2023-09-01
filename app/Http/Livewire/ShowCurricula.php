@@ -50,7 +50,7 @@ class ShowCurricula extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Borró curriculum',
+            'name' => 'Borró un curriculum',
             'users_id' => $user_id,
             'curricula_id' => $curriculum->id
         ]);
@@ -68,7 +68,7 @@ class ShowCurricula extends Component
     public function render()
     {
         /* ========================================
-        Buscar cuando se usan los dos filtros de 
+        Buscar cuando se usan los dos filtros de
         busqueda: $term y $user
         ========================================= */
         $curricula = Curriculum::when($this->term && $this->user, function ($query) {
@@ -118,7 +118,7 @@ class ShowCurricula extends Component
                     });
             })
             /* ========================================
-        Buscar cuando se usa solo el filtro de 
+        Buscar cuando se usa solo el filtro de
         busqueda: $user
         ========================================= */
             ->when(!$this->term && $this->user, function ($query) {
