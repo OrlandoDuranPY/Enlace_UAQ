@@ -69,8 +69,7 @@
             <div class="w-full h-full flex justify-center items-center flex-col">
                 <img class="h-32 mb-10" src="{{ asset('img/preview-icon.svg') }}" alt="Icono de preview">
                 <p class="w-5/6 text-center text-2xl text-gray-400">Da clic en una ficha para cargar la información de
-                    la
-                    persona.</p>
+                    la vacante.</p>
             </div>
         </div>
     @endif
