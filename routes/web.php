@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\CurriculaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
@@ -39,6 +40,11 @@ Rutas de vacantes
 Route::get('/vacantes', [VacancyController:: class, 'index'])->name('vacancies.index');
 Route::get('/crear/vacante', [VacancyController::class, 'createVacancy'])->name('vacancies.create');
 Route::get('/actualizar/vacante/{vacancy}', [VacancyController::class, 'updateVacancy'])->name('vacancies.update');
+
+/* ========================================
+Rutas de panel de administrador
+========================================= */
+Route::get('/panel-adminstrador', [AdminPanelController::class, 'index'])->name('admin.panel.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

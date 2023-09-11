@@ -1,6 +1,6 @@
 @extends('layouts.dashboard ')
 @section('titulo')
-    Enlace | Curriculums
+    Enlace | Vacantes
 @endsection
 @section('contenido')
     <livewire:show-vacancies/>

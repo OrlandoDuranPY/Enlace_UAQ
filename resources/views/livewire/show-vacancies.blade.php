@@ -59,9 +59,64 @@
     ======================================== -->
 
     @if ($selectedVacancy)
-    {{-- Preview para pantallas grandes --}}
+        {{-- Preview para pantallas grandes --}}
         <x-lg-preview :selectedVacancy='$selectedVacancy'>
+            <!-- ========================================
+       Header
+    ======================================== -->
+            <div class="relative">
+                {{-- Botones de Accion --}}
+                @auth
+                    <div class="absolute top-0 left-0 flex gap-2">
+                        {{-- Editar y eliminar Estudiantes --}}
+                        <a href="#"><img class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
+                        <button wire:click="#"><img class="h-8" src="{{ asset('img/delete.svg') }}"
+                                alt="Eliminar vacante"></button>
+                    </div>
+                @endauth
 
+                <div>
+                    {{-- Nombre de la empresa --}}
+                    <p class="text-right text-2xl font-semibold text-gray-400 truncate">
+                        {{ $selectedVacancy->company }}</p>
+                </div>
+            </div>
+
+            {{-- Nombre del puesto --}}
+            <p class="text-xl lg:text-3xl font-semibold">{{ $selectedVacancy->job_title }}</p>
+
+            <div class="space-y-2">
+                {{-- Ubicacion de la empresa --}}
+                <p class="text-xl font-semibold">{{ $selectedVacancy->location }}</p>
+
+                {{-- Salario --}}
+                @if ($selectedVacancy->salary)
+                    <p class="text-gray-400 text-xl font-semibold">{{ $selectedVacancy->salary }}</p>
+                @else
+                    <p class="text-gray-400 text-xl font-semibold">Salario pendiente</p>
+                @endif
+
+            </div>
+
+
+
+            <!-- ========================================
+               Descripción de la vacante
+            ======================================== -->
+            <div>
+                <h2 class="text-2xl text-rojo font-bold">Descripción</h2>
+                <p class="text-sm">{{ $selectedVacancy->description }}</p>
+            </div>
+
+            <!-- ========================================
+               Observaciones de la vacante
+            ======================================== -->
+            @if ($selectedVacancy->observations)
+                <div>
+                    <h2 class="text-2xl text-rojo font-bold">Observaciones</h2>
+                    <p class="text-sm">{{ $selectedVacancy->observations }}</p>
+                </div>
+            @endif
         </x-lg-preview>
     @else
         {{-- Mostar cuando no le has dado click a nada --}}

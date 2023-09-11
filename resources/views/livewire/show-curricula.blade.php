@@ -133,7 +133,7 @@
             ======================================== -->
             <div>
                 <h2 class="text-2xl text-rojo font-bold">Acerca de mí</h2>
-                <p class="text-justify text-sm">{{ $selectedCurriculum->about_me }}</p>
+                <p class="text-sm">{{ $selectedCurriculum->about_me }}</p>
             </div>
 
             <!-- ========================================
