@@ -2,10 +2,15 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    // mode: 'jit',
+    // purge: [
+    //     './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',
+    // ],
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./node_modules/flowbite/**/*.js",
+    './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',
   ],
   theme: {
     extend: {
