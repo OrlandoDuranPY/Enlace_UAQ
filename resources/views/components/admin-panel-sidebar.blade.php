@@ -1,4 +1,4 @@
-<aside class="w-2/12 bg-rojo p-5">
+<aside class="w-2/12 bg-rojo py-10 px-5">
     {{-- Logo de la aplicacion --}}
     <a href="/" class="w-full"><img class="h-16 mb-5" src="{{ asset('img/logo-white.svg') }}"
             alt="Logotipo Enlace"></a>
@@ -6,22 +6,22 @@
     {{-- Lista de opciones --}}
     <nav class="flex flex-col space-y-2">
         {{-- Dashboard --}}
-        <a href="{{ route('admin.panel.index') }}"
-            class="w-full text-white font-semibold py-3 px-4 rounded-lg group hover:bg-white transition-all">
-            <p class="group-hover:text-rojo text-lg"><span class="inline-block w-8 text-xl"><i
-                        class="fa-solid fa-chart-line"></i></span>Dashboard</p>
-        </a>
+        <x-sidebar-link :href="route('admin.panel.index')" :active="request()->routeIs('admin.panel.index')">
+            <x-slot:icon><i class="fa-solid fa-chart-line"></i></x-slot:icon>
+            <x-slot:option>Resumen</x-slot:option>
+        </x-sidebar-link>
+
         {{-- Usuarios --}}
-        <a href="#"
-            class="w-full text-white font-semibold py-3 px-4 rounded-lg group hover:bg-white transition-all">
-            <p class="group-hover:text-rojo text-lg"><span class="inline-block w-8 text-xl"><i
-                        class="fa-regular fa-user"></i></span>Usuarios</p>
-        </a>
+        <x-sidebar-link :href="route('admin.panel.users')" :active="request()->routeIs('admin.panel.users')">
+            <x-slot:icon><i class="fa-regular fa-user"></i></x-slot:icon>
+            <x-slot:option>Usuarios</x-slot:option>
+        </x-sidebar-link>
+
         {{-- Empresas --}}
-        <a href="#"
-            class="w-full text-white font-semibold py-3 px-4 rounded-lg group hover:bg-white transition-all">
-            <p class="group-hover:text-rojo text-lg"><span class="inline-block w-8 text-xl"><i
-                        class="fa-regular fa-building"></i></span>Empresas</p>
-        </a>
+        <x-sidebar-link :href="route('admin.panel.companies')" :active="request()->routeIs('admin.panel.companies')">
+            <x-slot:icon><i class="fa-regular fa-building"></i></x-slot:icon>
+            <x-slot:option>Empresas</x-slot:option>
+        </x-sidebar-link>
+
     </nav>
 </aside>

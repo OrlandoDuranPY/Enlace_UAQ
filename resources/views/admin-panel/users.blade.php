@@ -1,7 +1,7 @@
 @extends('layouts.admin ')
 @section('titulo')
-    Panel de administrador | Resumen
+    Panel de adminsitrador | Usuarios
 @endsection
 @section('contenido')
-    <livewire:admin-dashboard/>
+    <livewire:admin-users/>
 @endsection

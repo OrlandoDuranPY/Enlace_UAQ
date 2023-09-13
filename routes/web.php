@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\CurriculaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
+use App\View\Components\AdminPanelContent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,14 +38,16 @@ Route::get('/actualizar/curriculum-docente/{curriculum}', [CurriculaController::
 /* ========================================
 Rutas de vacantes
 ========================================= */
-Route::get('/vacantes', [VacancyController:: class, 'index'])->name('vacancies.index');
+Route::get('/vacantes', [VacancyController::class, 'index'])->name('vacancies.index');
 Route::get('/crear/vacante', [VacancyController::class, 'createVacancy'])->name('vacancies.create');
 Route::get('/actualizar/vacante/{vacancy}', [VacancyController::class, 'updateVacancy'])->name('vacancies.update');
 
 /* ========================================
 Rutas de panel de administrador
 ========================================= */
-Route::get('/panel-adminstrador', [AdminPanelController::class, 'index'])->name('admin.panel.index');
+Route::get('/panel/resumen', [AdminPanelController::class, 'index'])->name('admin.panel.index');
+Route::get('/panel/usuarios', [AdminPanelController::class, 'users'])->name('admin.panel.users');
+Route::get('/panel/empresas', [AdminPanelController::class, 'companies'])->name('admin.panel.companies');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,4 +55,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

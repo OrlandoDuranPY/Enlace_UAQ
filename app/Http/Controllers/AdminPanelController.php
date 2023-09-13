@@ -13,4 +13,11 @@ class AdminPanelController extends Controller
     {
         return view('admin-panel.index');
     }
+
+    /* ========================================
+    Vista de usuarios
+    ========================================= */
+    public function users(){
+        return view('admin-panel.users');
+    }
 }
