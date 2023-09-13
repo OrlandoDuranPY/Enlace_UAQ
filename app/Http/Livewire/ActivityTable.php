@@ -24,7 +24,7 @@ class ActivityTable extends DataTableComponent
             Column::make("Acción", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Responsable", "user.name")
+            Column::make("Usuario", "user.name")
                 ->sortable()
                 ->searchable(),
             Column::make("ID Curriculum", "curricula_id")
