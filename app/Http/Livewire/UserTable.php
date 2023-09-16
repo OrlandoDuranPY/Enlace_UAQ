@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
 class UserTable extends DataTableComponent
 {
@@ -26,6 +28,17 @@ class UserTable extends DataTableComponent
                 ->searchable(),
             Column::make("Administrador", "admin")
                 ->searchable(),
+            ButtonGroupColumn::make('Acciones')
+                ->attributes(function ($row) {
+                    return [
+                        'class' => 'space-x-2',
+                    ];
+                })
+                ->buttons([
+                    LinkColumn::make('Edit')
+                        ->title(fn ($row) => 'Editar')
+                        ->location(fn ($row) => '')
+                ])
         ];
     }
 }
