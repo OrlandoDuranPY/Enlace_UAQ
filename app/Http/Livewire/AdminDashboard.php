@@ -27,7 +27,7 @@ class AdminDashboard extends Component
                 ->orWhereHas('user', function ($userQuery) {
                     $userQuery->where('name', 'like', '%' . $this->search . '%');
                 });
-        })->get();
+        })->latest()->get();
 
         return view('livewire.admin-dashboard', [
             'curricula' => $curricula,

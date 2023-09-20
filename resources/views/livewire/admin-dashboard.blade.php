@@ -38,9 +38,11 @@
         <x-secondary-title>Registro de actividades</x-secondary-title>
         <x-data-table>
             <x-slot:search>
-                <input type="text" wire:model="search"
-                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde w-80"
+                <div class="grid lg:grid-cols-4 gap-10">
+                    <input type="text" wire:model="search"
+                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-1"
                     placeholder="Buscar por acción o usuario...">
+                </div>
             </x-slot:search>
             <x-slot:thead>
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
