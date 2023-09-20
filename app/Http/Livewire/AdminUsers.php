@@ -48,13 +48,13 @@ class AdminUsers extends Component
         ]);
 
         // Resetear el formulario
-        $this->reset([
-            'admin',
-            'name',
-            'email',
-            'password',
-            'password_confirmation'
-        ]);
+        // $this->reset([
+        //     'admin',
+        //     'name',
+        //     'email',
+        //     'password',
+        //     'password_confirmation'
+        // ]);
     }
 
     public function render()
