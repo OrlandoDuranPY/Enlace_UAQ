@@ -10,6 +10,10 @@ use App\Models\Curriculum;
 
 class AdminDashboard extends Component
 {
+    /* ========================================
+    Propiedades
+    ========================================= */
+    public $search;
     public function render()
     {
         $curricula = Curriculum::all();
@@ -17,7 +21,13 @@ class AdminDashboard extends Component
         $teacherCurricula = Curriculum::where('type', '==', 0)->get();
         $vacancies = Vacancy::all();
         $users = User::all();
-        $activities = Activity::paginate(1);
+        // $activities = Activity::paginate(10);
+        $activities = Activity::where(function ($query) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhereHas('user', function ($userQuery) {
+                    $userQuery->where('name', 'like', '%' . $this->search . '%');
+                });
+        })->get();
 
         return view('livewire.admin-dashboard', [
             'curricula' => $curricula,

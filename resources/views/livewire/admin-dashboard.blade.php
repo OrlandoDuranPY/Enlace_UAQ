@@ -37,6 +37,11 @@
     <div class="mt-10 space-y-5">
         <x-secondary-title>Registro de actividades</x-secondary-title>
         <x-data-table>
+            <x-slot:search>
+                <input type="text" wire:model="search"
+                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde w-80"
+                    placeholder="Buscar por acción o usuario...">
+            </x-slot:search>
             <x-slot:thead>
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -83,12 +88,19 @@
                         </tr>
                     </tbody>
                 @empty
-                    {{-- TODO: Mensaje de no hay actividades por mostrar --}}
+                    <!-- Mensaje de no hay actividades por mostrar -->
+                    <tbody>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                                No hay actividades por mostrar.
+                            </td>
+                        </tr>
+                    </tbody>
                 @endforelse
 
             </x-slot:tbody>
             <x-slot:links class="mt-4 bg-red-500">
-                    {{ $activities->links() }}
+                {{-- {{ $activities->links() }} --}}
             </x-slot:links>
         </x-data-table>
     </div>
