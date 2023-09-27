@@ -1,5 +1,5 @@
 <x-container>
-    <form class="space-y-10 lg:space-y-20 pb-10" wire:submit.prevent='createVacancy' novalidate>
+    <form class="space-y-10 lg:space-y-20 pb-10" wire:submit.prevent='updateVacancy' novalidate>
         {{-- Datos de la empresa --}}
         <div>
             <x-secondary-title>Datos de la empresa</x-secondary-title>

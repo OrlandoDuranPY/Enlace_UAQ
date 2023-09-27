@@ -124,14 +124,11 @@ class CreateStudentCurriculum extends Component
 
         // ID de la persona autenticada
         $user_id = Auth::id();
-        // ID del curriculum
-        $curriculum_id = $curriculum->id;
 
         // Crear una nueva accion en la tabla historial
         Activity::create([
-            'name' => 'Agregó curriculum de estudiante',
+            'name' => 'Agregó el curriculum de: '. $data['name'].' '.$data['last_name'],
             'users_id' => $user_id,
-            'curricula_id' => $curriculum_id
         ]);
 
         // Emitir evento de mensaje de exito

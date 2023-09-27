@@ -29,4 +29,5 @@ class VacancyController extends Controller
             'vacancy' => $vacancy
         ]);
     }
+
 }

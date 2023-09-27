@@ -57,10 +57,11 @@ class ShowVacancies extends Component
     }
 
     /* ========================================
-    Cerrar el preview de la vacante en
-    dispositivos moviles
+    Cerrar preview del curriculum en dispositivos
+    moviles
     ========================================= */
-    public function closeVacancy(){
+    public function closePreview()
+    {
         $this->reset(['selectedVacancy', 'selectedCard']);
     }
 

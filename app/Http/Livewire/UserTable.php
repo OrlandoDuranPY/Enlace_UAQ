@@ -26,7 +26,7 @@ class UserTable extends DataTableComponent
                 ->searchable(),
             Column::make("Correo", "email")
                 ->searchable(),
-            Column::make("Administrador", "admin")
+            Column::make("Administrador", "rol")
                 ->searchable(),
             ButtonGroupColumn::make('Acciones')
                 ->attributes(function ($row) {

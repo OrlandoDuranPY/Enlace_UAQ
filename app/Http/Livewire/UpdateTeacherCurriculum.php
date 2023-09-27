@@ -259,9 +259,8 @@ class UpdateTeacherCurriculum extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Actualizó curriculum de docente',
+            'name' => 'Actualizó el curriculum de: '. $data['name'].' '.$data['last_name'],
             'users_id' => $user_id,
-            'curricula_id' => $curriculum_id
         ]);
 
         // Emitir evento de mensaje de exito

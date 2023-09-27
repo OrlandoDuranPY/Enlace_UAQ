@@ -57,10 +57,7 @@
                             Usuario
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Creado
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actualizado
+                            Fecha
                         </th>
                         {{-- <th scope="col" class="px-6 py-3">
                             <span class="sr-only">Edit</span>
@@ -84,16 +81,13 @@
                             <td class="px-6 py-4">
                                 {{ $activity->created_at }}
                             </td>
-                            <td class="px-6 py-4">
-                                {{ $activity->updated_at }}
-                            </td>
                         </tr>
                     </tbody>
                 @empty
                     <!-- Mensaje de no hay actividades por mostrar -->
                     <tbody>
                         <tr class="bg-white border-b hover:bg-gray-50">
-                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            <td colspan="7" class="px-6 py-4 text-center text-gray-500">
                                 No hay actividades por mostrar.
                             </td>
                         </tr>

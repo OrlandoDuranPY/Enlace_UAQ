@@ -50,9 +50,8 @@ class ShowCurricula extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Borró un curriculum',
+            'name' => 'Borró el curriculum de: '. $curriculum->name . ' ' . $curriculum->last_name,
             'users_id' => $user_id,
-            'curricula_id' => $curriculum->id
         ]);
     }
 
@@ -60,7 +59,7 @@ class ShowCurricula extends Component
     Cerrar preview del curriculum en dispositivos
     moviles
     ========================================= */
-    public function closeCurriculum()
+    public function closePreview()
     {
         $this->reset(['selectedCurriculum', 'selectedCard']);
     }

@@ -4,5 +4,5 @@
 @endsection
 @section('contenido')
     <x-main-title>Actualizar Vacante</x-main-title>
-    <livewire:create-vacancy/>
+    <livewire:update-vacancy :vacancy="$vacancy"/>
 @endsection

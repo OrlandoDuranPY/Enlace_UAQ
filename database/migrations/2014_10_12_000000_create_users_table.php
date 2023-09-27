@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('admin')->default(0); // Usuario normal: 0, Admin: 1
+            $table->string('rol')->default('user'); // admin: Administrador, user: Usuario
             $table->rememberToken();
             $table->timestamps();
         });
@@ -28,7 +28,7 @@ return new class extends Migration
             'name' => 'Admin',
             'email' => 'admin_enlace@email.com',
             'password' => Hash::make('AdminEnlace'),
-            'admin' => '1',
+            'rol' => 'admin',
         ]);
     }
 

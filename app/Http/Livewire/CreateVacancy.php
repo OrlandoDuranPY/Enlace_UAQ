@@ -41,7 +41,7 @@ class CreateVacancy extends Component
         $data = $this->validate();
 
         // Guardar la vacante en la base de datos
-        $vacancy = Vacancy::create([
+        Vacancy::create([
             'company' => $data['company'],
             'location' => $data['location'],
             'job_title' => $data['job_title'],
@@ -53,15 +53,10 @@ class CreateVacancy extends Component
         // ID de la persona autenticada
         $user_id = Auth::id();
 
-        // ID de la vacante
-        $vacancy_id = $vacancy->id;
-        // dd($vacancy->id);
-
         // Crear una nueva accion en la tabla historial
         Activity::create([
-            'name' => 'Agregó una vacante',
+            'name' => 'Agregó la vacante: ' . $data['company'] . ', ' . $data['job_title'],
             'users_id' => $user_id,
-            'vacancies_id' => $vacancy_id
         ]);
 
         // Emitir evento de mensaje de exito

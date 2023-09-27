@@ -14,7 +14,7 @@
         <div class="truncate text-gray-700">{{ Auth::user()->email }}</div>
     </div>
     <ul class="py-2 text-sm text-gray-400 text-left" aria-labelledby="dropdownSessionButton">
-        @if (Auth::user()->admin == 1)
+        @if (Auth::user()->rol == 'admin')
             <li>
                 <a href="{{route('admin.panel.index')}}"
                     class="block px-4 py-2 hover:bg-rojo hover:bg-opacity-50 hover:text-white font-semibold">Panel

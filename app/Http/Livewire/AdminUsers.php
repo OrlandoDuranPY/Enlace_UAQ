@@ -12,7 +12,7 @@ class AdminUsers extends Component
     /* ========================================
     Propiedades
     ========================================= */
-    public $admin;
+    public $rol;
     public $name;
     public $email;
     public $password;
@@ -22,9 +22,9 @@ class AdminUsers extends Component
     Validacion de datos
     ========================================= */
     protected $rules = [
+        'rol' => ['required'],
         'name' => ['required', 'min:3', 'max:255'],
         'email' => ['required', 'email', 'max:255'],
-        'admin' => ['required', 'between:0,1'],
         'password' => ['required', 'min:8', 'confirmed'],
         'password_confirmation' => ['required'],
     ];
@@ -32,11 +32,12 @@ class AdminUsers extends Component
     public function addUser()
     {
         $datos = $this->validate();
+        dd($datos);
         User::create([
-            'admin' => $datos['admin'],
+            'rol' => $datos['admin'],
             'name' => $datos['name'],
             'email' => $datos['email'],
-            'password' => $datos['password']
+            'password' => $datos['password'],
         ]);
 
         // ID de la persona autenticada
