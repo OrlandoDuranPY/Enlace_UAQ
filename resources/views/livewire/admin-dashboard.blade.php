@@ -51,10 +51,10 @@
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Acción
+                            Usuario
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Usuario
+                            Acción
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Fecha
@@ -73,10 +73,10 @@
                                 {{ $activity->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $activity->name }}
+                                {{ $activity->user->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $activity->user->name }}
+                                {{ $activity->name }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $activity->created_at }}

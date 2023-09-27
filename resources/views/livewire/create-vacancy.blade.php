@@ -40,7 +40,7 @@
                 <div class="w-full">
                     <x-label for="salary">Salario</x-label>
                     <x-text-input wire:model="salary" type="text" class="w-full" id="salary"
-                        :placeholder="'Ejemplo: $5,000 - $10,000'" />
+                        :placeholder="'Ejemplo: $10,000 - $15,000 mensuales'" />
                     <x-input-error :messages="$errors->get('salary')" class="mt-2" />
                 </div>
             </x-grid-container>

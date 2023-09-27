@@ -240,6 +240,9 @@ return [
         'location' => 'ubicación',
         'job_title' => 'nombre del puesto',
         'salario' => 'salary',
-        'description' => 'descripción'
+        'description' => 'descripción',
+        // Otross
+        'password' => 'contraseña',
+        'password_confirmation' => 'confirmar contraseña',
     ]
 ];
