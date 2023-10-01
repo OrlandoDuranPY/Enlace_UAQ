@@ -70,7 +70,7 @@
                     <div class="absolute top-0 left-0 flex gap-2">
                         {{-- Editar y eliminar Estudiantes --}}
                         <a href="{{route('vacancies.update', $selectedVacancy->id)}}"><img class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
-                        <button wire:click="#"><img class="h-8" src="{{ asset('img/delete.svg') }}"
+                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8" src="{{ asset('img/delete.svg') }}"
                                 alt="Eliminar vacante"></button>
                     </div>
                 @endauth

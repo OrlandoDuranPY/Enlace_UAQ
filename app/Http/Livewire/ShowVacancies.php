@@ -50,7 +50,7 @@ class ShowVacancies extends Component
 
         // Crear una nueva accion en la tabla de actividades
         Activity::create([
-            'name' => 'Borró la vacante de: '. $vacancy->company . ': ' . $vacancy->job_title,
+            'name' => 'Borró la vacante de: '. $vacancy->company . ', ' . $vacancy->job_title,
             'users_id' => $user_id,
         ]);
     }

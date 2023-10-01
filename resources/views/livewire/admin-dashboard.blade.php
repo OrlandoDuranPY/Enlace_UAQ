@@ -96,7 +96,7 @@
 
             </x-slot:tbody>
             <x-slot:links class="mt-4 bg-red-500">
-                {{-- {{ $activities->links() }} --}}
+                {{ $activities->links() }}
             </x-slot:links>
         </x-data-table>
     </div>

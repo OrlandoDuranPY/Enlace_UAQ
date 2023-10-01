@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Eliminar el curriculum desde el servidor
-                Livewire.emit('deleteCurriculum', curriculum_id);
+                Livewire.emit("deleteCurriculum", curriculum_id);
                 // Muestra en la vista que el curriculum se eliminó correctamente
                 Toast.fire({
                     icon: "success",
@@ -92,4 +92,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    /* ========================================
+    Evento: Borrar una vacante
+    ========================================= */
+    Livewire.on("deleteVacancyJS", (vacancy_id) => {
+        Swal.fire({
+            title: "¿Quieres eliminar esta vacante?",
+            text: "¡Esta acción no puede ser revertida!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#7AD8DB",
+            cancelButtonColor: "#ED5660",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar la vacante desde el servidor
+                Livewire.emit("deleteVacancy", vacancy_id);
+                // Muestra en la vista que la vacante se elimino correctamnete
+                Toast.fire({
+                    icon: "success",
+                    title: "¡Vacante eliminada exitosamente!",
+                });
+            }
+        });
+    });
 });

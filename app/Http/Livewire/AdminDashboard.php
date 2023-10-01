@@ -7,13 +7,20 @@ use App\Models\Vacancy;
 use Livewire\Component;
 use App\Models\Activity;
 use App\Models\Curriculum;
+use Rappasoft\LaravelLivewireTables\Traits\WithPagination;
 
 class AdminDashboard extends Component
 {
+    use WithPagination; // No recargar la pagina al usar la paginacion
     /* ========================================
     Propiedades
     ========================================= */
     public $search;
+
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
     public function render()
     {
         $curricula = Curriculum::all();
@@ -27,7 +34,7 @@ class AdminDashboard extends Component
                 ->orWhereHas('user', function ($userQuery) {
                     $userQuery->where('name', 'like', '%' . $this->search . '%');
                 });
-        })->latest()->get();
+        })->latest()->paginate(10);
 
         return view('livewire.admin-dashboard', [
             'curricula' => $curricula,

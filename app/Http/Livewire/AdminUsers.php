@@ -17,6 +17,31 @@ class AdminUsers extends Component
     public $email;
     public $password;
     public $password_confirmation;
+    public $showModal = false;
+
+    /* ========================================
+    Abrir la ventana modal
+    ========================================= */
+    public function openModal()
+    {
+        $this->showModal = true;
+    }
+
+    /* ========================================
+    Cerrar la ventana modal
+    ========================================= */
+    public function closeModal()
+    {
+        $this->showModal = false;
+        // Resetear el formulario
+        $this->reset([
+            'rol',
+            'name',
+            'email',
+            'password',
+            'password_confirmation'
+        ]);
+    }
 
     /* ========================================
     Validacion de datos
