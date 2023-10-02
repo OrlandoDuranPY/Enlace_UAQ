@@ -84,6 +84,8 @@ class AdminUsers extends Component
             'password',
             'password_confirmation'
         ]);
+
+        $this->closeModal();
     }
 
     public function render()

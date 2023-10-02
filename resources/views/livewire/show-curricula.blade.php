@@ -359,7 +359,7 @@
                 <!-- ========================================
                Boton para cerrar el curriculum
             ======================================== -->
-                <div wire:click="closeCurriculum"
+                <div wire:click="closePreview"
                     class="fixed bottom-5 md:bottom-10 right-5 md:right-10 bg-white shadow-md p-5 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer hover:scale-110 transition">
                     <span class="text-gray-500"><i class="fas fa-times"></i></span></div>
             </div>
