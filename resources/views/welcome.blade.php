@@ -26,13 +26,12 @@
     <!-- ========================================
        Contenido
     ======================================== -->
-    <div class="h-screen px-10 lg:px-0 lg:w-6/12 mx-auto flex items-center justify-center flex-col">
+    <div class="h-screen lg:w-6/12 mx-auto flex items-center justify-center flex-col">
         <img src="{{ asset('img/logo-color.svg') }}" class="mb-10 h-28" alt="Logo Enlace">
         <!-- ========================================
            Formulario de buscador
         ======================================== -->
-        {{-- <livewire:filtrar-curriculums/> --}}
-
+            <livewire:home-searchbar>
     </div>
 
     @livewireScripts
