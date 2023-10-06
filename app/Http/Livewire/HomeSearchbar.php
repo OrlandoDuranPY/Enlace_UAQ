@@ -18,10 +18,20 @@ class HomeSearchbar extends Component
         'docType' => ['required'],
     ];
 
-    public function search(){
+    public function search()
+    {
         $data = $this->validate();
-        dd($this->term . $this->docType);
+
+        if ($this->docType == 'curricula') {
+            // Agregar el término como parámetro de consulta en la URL
+            return redirect()->route('curricula.index', ['term' => $this->term]);
+        } elseif ($this->docType == 'vacancies') {
+            // Agregar el término como parámetro de consulta en la URL
+            return redirect()->route('vacancies.index', ['term' => $this->term]);
+        }
     }
+
+
 
     public function render()
     {

@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Activity;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 class AdminUsers extends Component
 {
+    use WithPagination; // No recargar la pagina al usar la paginacion
+
     /* ========================================
     Propiedades
     ========================================= */
@@ -17,7 +20,13 @@ class AdminUsers extends Component
     public $email;
     public $password;
     public $password_confirmation;
+    public $search;
     public $showModal = false;
+    protected $listeners = ['deleteUser'];
+
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
     /* ========================================
     Abrir la ventana modal
@@ -88,8 +97,33 @@ class AdminUsers extends Component
         $this->closeModal();
     }
 
+    /* ========================================
+    Borrar usuarios
+    ========================================= */
+    public function deleteUser(User $user){
+        $user->delete();
+        // ID de la persona autenticada
+        $user_id = Auth::id();
+
+        // Crear una nueva accion en la tabla de Actividades
+        Activity::create([
+            'name' => 'Borró el usuario: ' . $user->name,
+            'users_id' => $user_id,
+        ]);
+    }
+
     public function render()
     {
-        return view('livewire.admin-users');
+        $users = User::where(function ($query) {
+            // $query->whereRaw('LOWER(name)', 'like', '%' . $this->search . '%');
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->search) . '%'])
+            ->orWhereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->search) . '%'])
+            ->orWhereRaw('LOWER(rol) LIKE ?', ['%' . strtolower($this->search) . '%']);
+        })
+        ->latest()->paginate(10);
+        return view('livewire.admin-users', [
+            'users' => $users
+        ]);
     }
 }
+

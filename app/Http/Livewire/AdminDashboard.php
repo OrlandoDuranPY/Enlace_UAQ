@@ -24,11 +24,8 @@ class AdminDashboard extends Component
     public function render()
     {
         $curricula = Curriculum::all();
-        $studentCurricula = Curriculum::where('type', '<>', 3)->get();
-        $teacherCurricula = Curriculum::where('type', '==', 0)->get();
         $vacancies = Vacancy::all();
         $users = User::all();
-        // $activities = Activity::paginate(10);
         $activities = Activity::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
                 ->orWhereHas('user', function ($userQuery) {
@@ -38,8 +35,6 @@ class AdminDashboard extends Component
 
         return view('livewire.admin-dashboard', [
             'curricula' => $curricula,
-            'studentCurricula' => $studentCurricula,
-            'teacherCurricula' => $teacherCurricula,
             'vacancies' => $vacancies,
             'users' => $users,
             'activities' => $activities

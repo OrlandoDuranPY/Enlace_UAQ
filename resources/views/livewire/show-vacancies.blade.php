@@ -5,7 +5,7 @@
     ======================================== -->
     <div class="w-full lg:w-7/12 h-full space-y-5 md:space-y-10 box-border">
         {{-- Formulario de busqueda  --}}
-        <livewire:search-curriculum class="md:w-full" />
+        <livewire:search-vacancy class="md:w-full" />
         <h1 class="font-semibold text-xl md:text-2xl uppercase">Vacantes</h1>
         {{-- Grid de Curriculumns --}}
         <div class=" box-border pb-10 lg:pb-0 h-4/5 lg:h-5/6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ">
@@ -130,7 +130,7 @@
                     <div class="absolute top-0 left-0 flex gap-2">
                         {{-- Editar y eliminar Estudiantes --}}
                         <a href="{{route('vacancies.update', $selectedVacancy->id)}}"><img class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
-                        <button wire:click="#"><img class="h-8" src="{{ asset('img/delete.svg') }}"
+                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8" src="{{ asset('img/delete.svg') }}"
                                 alt="Eliminar vacante"></button>
                     </div>
                 @endauth

@@ -18,6 +18,15 @@ class ShowCurricula extends Component
     public $curriculum_id;
 
     /* ========================================
+    Montar el $term que se recibe por URL para
+    que se aplique en automatico el filtro de
+    busqueda
+    ========================================= */
+    public function mount(){
+        $this->term = request('term');
+    }
+
+    /* ========================================
     Asignar valores del filtro de busqueda a
     propiedades de este componente
     ========================================= */
@@ -50,7 +59,7 @@ class ShowCurricula extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Borró el curriculum de: '. $curriculum->name . ' ' . $curriculum->last_name,
+            'name' => 'Borró el curriculum de: ' . $curriculum->name . ' ' . $curriculum->last_name,
             'users_id' => $user_id,
         ]);
     }

@@ -4,4 +4,5 @@
 @endsection
 @section('contenido')
     <livewire:show-curricula/>
+
 @endsection

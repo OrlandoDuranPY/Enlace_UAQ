@@ -117,4 +117,30 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    /* ========================================
+    Evento: Borrar un usuario
+    ========================================= */
+    Livewire.on("deleteUserJS", (user_id) => {
+        Swal.fire({
+            title: "¿Quieres eliminar este usuario?",
+            text: "¡Esta acción no puede ser revertida!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#7AD8DB",
+            cancelButtonColor: "#ED5660",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar la vacante desde el servidor
+                Livewire.emit("deleteUser", user_id);
+                // Muestra en la vista que la vacante se elimino correctamnete
+                Toast.fire({
+                    icon: "success",
+                    title: "Usuasio eliminado exitosamente!",
+                });
+            }
+        });
+    });
 });

@@ -16,18 +16,26 @@ class ShowVacancies extends Component
     public $selectedCard;
     public $term;
     public $company;
-    protected $listeners = ['deleteVacancy'];
+    protected $listeners = ['deleteVacancy', 'filterTerms' => 'filterVacancy'];
     // Propiedades de la vacante
     public $vacancy_id;
+
+        /* ========================================
+    Montar el $term que se recibe por URL para
+    que se aplique en automatico el filtro de
+    busqueda
+    ========================================= */
+    public function mount(){
+        $this->term = request('term');
+    }
 
     /* ========================================
     Asignar valores del filtro de busqueda a
     propiedades de este componente
     ========================================= */
-    public function filterVacancy($term, $company)
+    public function filterVacancy($term)
     {
         $this->term = $term;
-        $this->company = $company;
     }
 
     /* ========================================
@@ -67,7 +75,21 @@ class ShowVacancies extends Component
 
     public function render()
     {
-        $vacancies = Vacancy::all();
+        /* ========================================
+        Buscar vacantes por termino de busqueda
+        ========================================= */
+        $vacancies = Vacancy::when($this->term, function ($query){
+            $query->where(function ($query){
+                $query->whereRaw('LOWER(company) LIKE ?', ['%' . strtolower($this->term) . '%'])
+                ->orWhereRaw('LOWER(location) LIKE ?', ['%' . strtolower($this->term) . '%'])
+                ->orWhereRaw('LOWER(job_title) LIKE ?', ['%' . strtolower($this->term) . '%'])
+                ->orWhereRaw('LOWER(salary) LIKE ?', ['%' . strtolower($this->term) . '%'])
+                ->orWhereRaw('LOWER(description) LIKE ?', ['%' . strtolower($this->term) . '%'])
+                ->orWhereRaw('LOWER(observations) LIKE ?', ['%' . strtolower($this->term) . '%']);
+            });
+        })->latest()->get();
+
+        // $vacancies = Vacancy::all();
         return view('livewire.show-vacancies', [
             'vacancies' => $vacancies
         ]);
