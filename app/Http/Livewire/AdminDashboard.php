@@ -7,7 +7,7 @@ use App\Models\Vacancy;
 use Livewire\Component;
 use App\Models\Activity;
 use App\Models\Curriculum;
-use Rappasoft\LaravelLivewireTables\Traits\WithPagination;
+use Livewire\WithPagination;
 
 class AdminDashboard extends Component
 {
