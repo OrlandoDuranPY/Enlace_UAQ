@@ -4,7 +4,7 @@ use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\CurriculaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
-use App\View\Components\AdminPanelContent;
+// use App\View\Components\AdminPanelContent;
 use Illuminate\Support\Facades\Route;
 
 /*

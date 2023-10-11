@@ -20,4 +20,11 @@ class AdminPanelController extends Controller
     public function users(){
         return view('admin-panel.users');
     }
+
+    /* ========================================
+    Vista de empresas
+    ========================================= */
+    public function companies(){
+        return view('admin-panel.companies');
+    }
 }
