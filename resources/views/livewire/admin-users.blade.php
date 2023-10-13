@@ -80,10 +80,11 @@
                             <input type="text" wire:model="search"
                             class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-4"
                             placeholder="Buscar por acción o usuario...">
-                            <select class="h-10 col-span-1 mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde">
-                                <option value="">10 columnas</option>
-                                <option value="">20 columnas</option>
-                                <option value="">30 columnas</option>
+                            <select wire:model='showRows' class="h-10 col-span-1 mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde">
+                                <option value="10">10 filas</option>
+                                <option value="20">25 filas</option>
+                                <option value="50">50 filas</option>
+                                <option value="100">100 filas</option>
                             </select>
                             <x-primary-button class="h-10 col-span-1" wire:click="openModal">Crear usuario</x-primary-button>
                         </div>

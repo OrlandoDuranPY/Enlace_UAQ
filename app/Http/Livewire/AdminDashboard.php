@@ -16,6 +16,7 @@ class AdminDashboard extends Component
     Propiedades
     ========================================= */
     public $search;
+    public $showRows = 10; // Mostrar n numero de filas
 
     public function updatingSearch(){
         $this->resetPage();
@@ -31,7 +32,7 @@ class AdminDashboard extends Component
                 ->orWhereHas('user', function ($userQuery) {
                     $userQuery->where('name', 'like', '%' . $this->search . '%');
                 });
-        })->latest()->paginate(10);
+        })->latest()->paginate($this->showRows);
 
         return view('livewire.admin-dashboard', [
             'curricula' => $curricula,

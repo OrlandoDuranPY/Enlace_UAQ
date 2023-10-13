@@ -22,6 +22,7 @@ class AdminUsers extends Component
     public $password_confirmation;
     public $search;
     public $showModal = false;
+    public $showRows = 10; // Mostrar n numero de columnas en la tabla
     protected $listeners = ['deleteUser'];
 
     public function updatingSearch(){
@@ -120,7 +121,7 @@ class AdminUsers extends Component
             ->orWhereRaw('LOWER(email) LIKE ?', ['%' . strtolower($this->search) . '%'])
             ->orWhereRaw('LOWER(rol) LIKE ?', ['%' . strtolower($this->search) . '%']);
         })
-        ->latest()->paginate(10);
+        ->latest()->paginate($this->showRows);
         return view('livewire.admin-users', [
             'users' => $users
         ]);

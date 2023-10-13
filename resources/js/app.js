@@ -143,4 +143,30 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    /* ========================================
+    Evento: Borrar una empresa
+    ========================================= */
+    Livewire.on("deleteCompanyJS", (user_id) => {
+        Swal.fire({
+            title: "¿Quieres eliminar esta empresa?",
+            text: "¡Esta acción no puede ser revertida!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#7AD8DB",
+            cancelButtonColor: "#ED5660",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar la vacante desde el servidor
+                Livewire.emit("deleteCompany", user_id);
+                // Muestra en la vista que la vacante se elimino correctamnete
+                Toast.fire({
+                    icon: "success",
+                    title: "Empresa eliminada exitosamente!",
+                });
+            }
+        });
+    });
 });

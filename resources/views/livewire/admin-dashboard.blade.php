@@ -38,12 +38,19 @@
         <x-secondary-title>Registro de actividades</x-secondary-title>
         <x-data-table>
             <x-slot:search>
-                <div class="grid lg:grid-cols-4 gap-10">
+                <div class="grid lg:grid-cols-6 gap-10">
                     <input type="text" wire:model="search"
-                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-1"
+                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-5"
                     placeholder="Buscar por acción o usuario...">
+                    <select wire:model='showRows' class="h-10 col-span-1 mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde">
+                        <option value="10">10 filas</option>
+                        <option value="20">25 filas</option>
+                        <option value="50">50 filas</option>
+                        <option value="100">100 filas</option>
+                    </select>
                 </div>
             </x-slot:search>
+
             <x-slot:thead>
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
