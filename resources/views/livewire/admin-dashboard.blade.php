@@ -27,7 +27,7 @@
             {{-- Tarjeta de empresas --}}
             <div class="shadow bg-white rounded-lg p-6 relative">
                 <span class="text-verde text-3xl"><i class="fa-solid fa-building"></i></span>
-                <h2 class="text-5xl font-black text-right">0</h2>
+                <h2 class="text-5xl font-black text-right">{{ $companies->count() }}</h2>
                 <p class="font-semibold text-gray-500 text-right text-lg">Total de empresas</p>
             </div>
         </div>
@@ -40,9 +40,10 @@
             <x-slot:search>
                 <div class="grid lg:grid-cols-6 gap-10">
                     <input type="text" wire:model="search"
-                    class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-5"
-                    placeholder="Buscar por acción o usuario...">
-                    <select wire:model='showRows' class="h-10 col-span-1 mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde">
+                        class="mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde col-span-5"
+                        placeholder="Buscar por acción o usuario...">
+                    <select wire:model='showRows'
+                        class="h-10 col-span-1 mb-5 rounded-lg text-sm border border-gray-300 focus:ring-1 focus:ring-verde focus:border-verde">
                         <option value="10">10 filas</option>
                         <option value="20">25 filas</option>
                         <option value="50">50 filas</option>

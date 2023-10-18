@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Vacancy;
 use Livewire\Component;
 use App\Models\Activity;
+use App\Models\Company;
 use App\Models\Curriculum;
 use Livewire\WithPagination;
 
@@ -27,6 +28,7 @@ class AdminDashboard extends Component
         $curricula = Curriculum::all();
         $vacancies = Vacancy::all();
         $users = User::all();
+        $companies = Company::all();
         $activities = Activity::where(function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%')
                 ->orWhereHas('user', function ($userQuery) {
@@ -38,7 +40,8 @@ class AdminDashboard extends Component
             'curricula' => $curricula,
             'vacancies' => $vacancies,
             'users' => $users,
-            'activities' => $activities
+            'activities' => $activities,
+            'companies' => $companies
         ]);
     }
 }

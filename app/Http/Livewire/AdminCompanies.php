@@ -50,7 +50,7 @@ class AdminCompanies extends Component
     Validacion de datos
     ========================================= */
     protected $rules = [
-        'name' => ['required', 'min:3', 'max:255'],
+        'name' => ['required', 'min:3', 'max:255', 'unique:companies,name'],
     ];
 
     /* ========================================
