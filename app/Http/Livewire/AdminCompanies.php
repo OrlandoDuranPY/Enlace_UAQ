@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Company;
 use Livewire\Component;
 use App\Models\Activity;
+use App\Models\Curriculum;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,10 +17,12 @@ class AdminCompanies extends Component
     Propiedades de la empresa
     ========================================= */
     public $search;
+    public $searchUser;
     public $showRows = 10;
     public $name;
     public $num_curriculums;
     public $showCompanyModal = false;
+    public $showAddUserModal = false;
     protected $listeners = ['deleteCompany'];
 
     public function updatingSearch()
@@ -44,6 +47,20 @@ class AdminCompanies extends Component
         $this->reset([
             'name'
         ]);
+    }
+
+    /* ========================================
+    Abrir ventana modal de usuarios
+    ========================================= */
+    public function showAddUserModal(){
+        $this->showAddUserModal=true;
+    }
+
+    /* ========================================
+    Cerrar ventana modal de usuarios
+    ========================================= */
+    public function closeAddUserModal(){
+        $this->showAddUserModal=false;
     }
 
     /* ========================================
@@ -100,11 +117,17 @@ class AdminCompanies extends Component
 
     public function render()
     {
+        $curricula = Curriculum::where(function ($query){
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->searchUser) . '%']);
+        })->latest()->paginate(10);
+
         $companies = Company::where(function ($query){
             $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->search) . '%']);
         })->latest()->paginate($this->showRows);
+
         return view('livewire.admin-companies', [
-            'companies' => $companies
+            'companies' => $companies,
+            'curricula' => $curricula
         ]);
     }
 }

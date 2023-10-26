@@ -1,5 +1,7 @@
 <div>
+    @isset($search)
     {{$search}}
+    @endisset
     <div class="relative overflow-x-auto shadow sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             {{ $thead }}
