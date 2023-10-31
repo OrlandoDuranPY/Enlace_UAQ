@@ -29,6 +29,8 @@ class Curriculum extends Model
         'study_level',
         'degree',
         'type',
+        'active',
+        'companies_id'
     ];
 
     public function academicProgram(){

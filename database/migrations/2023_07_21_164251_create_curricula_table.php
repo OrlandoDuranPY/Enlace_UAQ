@@ -44,6 +44,7 @@ return new class extends Migration
             Activo o Desactivo
             ========================================= */
             $table->boolean('active')->default(1);
+            $table->foreignId('companies_id')->nullable();
             $table->timestamps();
         });
     }

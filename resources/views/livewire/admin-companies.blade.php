@@ -2,6 +2,9 @@
     <div class="space-y-5">
         <x-secondary-title>Empresas</x-secondary-title>
 
+        <!-- ========================================
+           Ventana modal para agregar empresas
+        ======================================== -->
         @if ($showCompanyModal)
             <div>
                 <!-- Fondo oscuro -->
@@ -29,15 +32,14 @@
                             </form>
                         </div>
 
-                        <!-- Botón de cerrar modal -->
-                        {{-- <div class="modal-footer p-4">
-                            <button wire:click="closeModal" class="text-blue-500 hover:underline">Cerrar</button>
-                        </div> --}}
                     </div>
                 </div>
             </div>
         @endif
 
+        <!-- ========================================
+           Ventana modal para vincular usuarios
+        ======================================== -->
         @if ($showAddUserModal)
             <div>
                 <!-- Fondo oscuro -->
@@ -89,16 +91,17 @@
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     @if ($curriculum->type == 1)
-                                                    <p>Estudiante</p>
+                                                        <p>Estudiante</p>
                                                     @elseif ($curriculum->type == 2)
-                                                    <p>Egresado</p>
+                                                        <p>Egresado</p>
                                                     @elseif ($curriculum->type == 3)
-                                                    <p>Docente</p>
+                                                        <p>Docente</p>
                                                     @endif
                                                 </td>
 
                                                 <td class="px-6 space-x-4">
-                                                    <button wire:click="showAddUserModal"
+                                                    {{-- Boton para vincular usuario con la empresa --}}
+                                                    <button wire:click="linkUser({{ $curriculum->id }})"
                                                         class="px-4 py-2 bg-verde text-white font-semibold rounded-lg"
                                                         type="button"><i class="fa-solid fa-square-plus"></i></button>
                                                 </td>
@@ -194,12 +197,15 @@
                                 </td>
 
                                 <td class="px-6 space-x-4">
-                                    <button wire:click="showAddUserModal"
+                                    {{-- Boton para mostrar ventana modal para vincular usuarios --}}
+                                    <button wire:click="showAddUserModal({{ $company->id }})"
                                         class="px-4 py-2 bg-verde text-white font-semibold rounded-lg" type="button"><i
                                             class="fa-solid fa-square-plus"></i></button>
+                                    {{-- Boton para mostrar ventana de usuarios vinculados --}}
                                     <button wire:click=""
                                         class="px-4 py-2 bg-blue-300 text-white font-semibold rounded-lg"
                                         type="button"><i class="fa-solid fa-user"></i></button>
+                                    {{-- Boton para eliminar empresa --}}
                                     <button wire:click="$emit('deleteCompanyJS', {{ $company->id }})"
                                         class="px-4 py-2 bg-rojo text-white font-semibold rounded-lg" type="button"><i
                                             class="fa-solid fa-trash-can"></i></button>
