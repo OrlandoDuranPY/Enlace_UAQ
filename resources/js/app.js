@@ -67,6 +67,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* ========================================
+    Toast: Mensaje de exito
+    ========================================= */
+    Livewire.on("success_message", (message) => {
+        Toast.fire({
+            icon: "success",
+            title: message,
+        });
+    });
+
+    /* ========================================
+    Toast: Mensaje de error
+    ========================================= */
+    Livewire.on("error_message", (message) => {
+        Toast.fire({
+            icon: "error",
+            title: message,
+        });
+    });
+
+
+    /* ========================================
     Evento: Borrar un curriculum
     ========================================= */
     Livewire.on("deleteCurriculumJS", (curriculum_id) => {
@@ -161,10 +182,31 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.isConfirmed) {
                 // Eliminar la vacante desde el servidor
                 Livewire.emit("deleteCompany", user_id);
+            }
+        });
+    });
+
+    /* ========================================
+    Evento: Desvincular un usuario de la empresa
+    ========================================= */
+    Livewire.on("unlinkUserJS", (user_id) => {
+        Swal.fire({
+            title: "¿Quieres desvincular este usuario de la empresa?",
+            text: "¡Esta acción no puede ser revertida!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#7AD8DB",
+            cancelButtonColor: "#ED5660",
+            confirmButtonText: "Desvincular",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar la vacante desde el servidor
+                Livewire.emit("unlinkUser", user_id);
                 // Muestra en la vista que la vacante se elimino correctamnete
                 Toast.fire({
                     icon: "success",
-                    title: "Empresa eliminada exitosamente!",
+                    title: "Usuario desvinculado exitosamente!",
                 });
             }
         });

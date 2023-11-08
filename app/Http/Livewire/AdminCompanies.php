@@ -6,7 +6,6 @@ use App\Models\Company;
 use Livewire\Component;
 use App\Models\Activity;
 use App\Models\Curriculum;
-use App\Models\CurriculumCompany;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,15 +16,16 @@ class AdminCompanies extends Component
     /* ========================================
     Propiedades de la empresa
     ========================================= */
-    public $search;
+    public $searchCompany;
     public $searchUser;
     public $showRows = 10;
     public $name;
     public $num_curriculums;
     public $showCompanyModal = false;
     public $showAddUserModal = false;
+    public $showLinkedUsers = false;
     public $selectedCompany;
-    protected $listeners = ['deleteCompany'];
+    protected $listeners = ['deleteCompany', 'unlinkUser'];
 
     public function updatingSearch()
     {
@@ -54,11 +54,43 @@ class AdminCompanies extends Component
     /* ========================================
     Abrir ventana modal de usuarios
     ========================================= */
-    public function showAddUserModal($id_company)
+    public function showAddUserModal($company_id)
     {
-        $this->selectedCompany = $id_company;
+        $this->selectedCompany = $company_id;
         // dd($this->selectedCompany);
         $this->showAddUserModal = true;
+    }
+
+    /* ========================================
+    Cerrar ventana modal de usuarios
+    ========================================= */
+    public function closeAddUserModal()
+    {
+        $this->showAddUserModal = false;
+        $this->reset([
+            'searchUser'
+        ]);
+    }
+
+    /* ========================================
+    Abrir Modal para mostrar usuarios vinculados
+    ========================================= */
+    public function showLinkedUsersModal($company_id)
+    {
+        $this->selectedCompany = $company_id;
+        // dd('SelectedCompany' . $this->selectedCompany);
+        $this->showLinkedUsers = true;
+    }
+
+    /* ========================================
+    Cerrar Modal de usuarios vinculados
+    ========================================= */
+    public function closeLinkedUsersModal()
+    {
+        $this->showLinkedUsers = false;
+        $this->reset([
+            'searchUser'
+        ]);
     }
 
     /* ========================================
@@ -86,11 +118,17 @@ class AdminCompanies extends Component
     }
 
     /* ========================================
-    Cerrar ventana modal de usuarios
+    Desvincular un usuario de la empresa
     ========================================= */
-    public function closeAddUserModal()
+    public function unlinkUser($curriculum_id)
     {
-        $this->showAddUserModal = false;
+        // dd($curriculum_id);
+
+        Curriculum::where('id', $curriculum_id)->update(['companies_id' => null]);
+
+        $this->emit('create_success', '¡Usuario desvinculado exitosamente!');
+
+        $this->closeLinkedUsersModal();
     }
 
     /* ========================================
@@ -120,7 +158,7 @@ class AdminCompanies extends Component
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('create_success', 'Empresa agregada exitosamente!');
+        $this->emit('create_success', '¡Empresa agregada exitosamente!');
 
         // Resetear el formulario
         $this->reset(['name']);
@@ -134,15 +172,27 @@ class AdminCompanies extends Component
     ========================================= */
     public function deleteCompany(Company $company)
     {
-        $company->delete();
+        $linkedUsers = Curriculum::where('companies_id', $company->id)->get();
+        if (count($linkedUsers) > 0) {
+            // Emitir evento de mensaje de error
+            $this->emit('error_message', '¡Error al eliminar, borre los usuarios vinculados!');
+            return;
+        }
+
         // ID de la persona autenticada
         $user_id = Auth::id();
+
+        $company->delete();
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
             'name' => 'Borró la empresa: ' . $company->name,
             'users_id' => $user_id,
         ]);
+
+        // Emitir evento de mensaje de exito
+        $this->emit('success_message', '¡Empresa eliminada exitosamente!');
+
     }
 
     public function render()
@@ -151,13 +201,23 @@ class AdminCompanies extends Component
             $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->searchUser) . '%']);
         })->whereNull('companies_id')->latest()->paginate(10);
 
+        $linkedUsers = Curriculum::where(function ($query) {
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->searchUser) . '%']);
+        })->where('companies_id', '=', $this->selectedCompany) // Agregar la condición de companies_id
+            ->latest()
+            ->paginate(10);
+
+        // $linkedUsers = Curriculum::where('companies_id', '=', $this->selectedCompany);
+        // $linkedUsers = Curriculum::where('companies_id', $this->selectedCompany);
+
         $companies = Company::where(function ($query) {
-            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->search) . '%']);
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->searchCompany) . '%']);
         })->latest()->paginate($this->showRows);
 
         return view('livewire.admin-companies', [
             'companies' => $companies,
-            'curricula' => $curricula
+            'curricula' => $curricula,
+            'linkedUsers' => $linkedUsers,
         ]);
     }
 }
