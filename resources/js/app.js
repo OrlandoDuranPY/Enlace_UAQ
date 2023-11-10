@@ -86,6 +86,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    /* ========================================
+    Alerta: Mensaje de error
+    ========================================= */
+    Livewire.on("error_message_alert", (message) => {
+        Swal.fire({
+            title: "Acción denegada",
+            text: message,
+            icon: "error",
+        });
+    });
+
+    /* ========================================
+    Evento: Cambiar status del curriculum
+    ========================================= */
+    Livewire.on("statusCurriculumJS", (curriculum_id) => {
+        Swal.fire({
+            title: "¿Quieres cambiar el estado curriculum?",
+            text: "¡Esta acción no puede ser revertida!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#7AD8DB",
+            cancelButtonColor: "#ED5660",
+            confirmButtonText: "Cambiar estatus",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar el curriculum desde el servidor
+                Livewire.emit("statusCurriculum", curriculum_id);
+            }
+        });
+    });
 
     /* ========================================
     Evento: Borrar un curriculum

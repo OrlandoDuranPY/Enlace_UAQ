@@ -8,9 +8,9 @@
         <livewire:search-curriculum class="md:w-full" />
         <h1 class="font-semibold text-xl md:text-2xl uppercase">Curriculums</h1>
         {{-- Grid de Curriculumns --}}
-            <div class=" box-border pb-10 lg:pb-0 h-4/5 lg:h-5/6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ">
-                {{-- Contenedor de tarjetas / GRID  --}}
-                <div class="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 box-border pr-2 p-1">
+        <div class=" box-border pb-10 lg:pb-0 h-4/5 lg:h-5/6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ">
+            {{-- Contenedor de tarjetas / GRID  --}}
+            <div class="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 box-border pr-2 p-1">
 
                 @forelse ($curricula as $curriculum)
                     <!-- ========================================
@@ -90,16 +90,24 @@
                 {{-- Botones de Accion --}}
                 @auth
                     <div class="absolute top-0 left-0 flex gap-2">
-                        {{-- Editar y eliminar Estudiantes --}}
+                        {{-- Editar, eliminar y pausar curriculums --}}
                         @if ($selectedCurriculum->type === 3)
-                            <a href="{{route('curricula.teacher.update', $selectedCurriculum->id)}}"><img
-                                    class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                            <a href="{{ route('curricula.teacher.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                         @else
-                            <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
-                                    class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                            <a href="{{ route('curricula.student.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                         @endif
-                        <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img
-                            class="h-8" src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
+                        @if ($selectedCurriculum->active === 1)
+                        <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                            src="{{ asset('img/pause.svg') }}" alt="Estatus curriculum"></button>
+                        @else
+                        <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                            src="{{ asset('img/play.svg') }}" alt="Estatus curriculum"></button>
+                        @endif
+
+                        <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                                src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
                     </div>
                 @endauth
 
@@ -229,19 +237,27 @@
                 <div class="relative">
                     {{-- Botones de Accion --}}
                     @auth
-                        <div class="absolute top-0 left-0 flex gap-2">
-                            {{-- Editar y eliminar Estudiantes --}}
-                            @if ($selectedCurriculum->type === 3)
-                                <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
-                                        class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
-                            @else
-                                <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
-                                        class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
-                            @endif
-                            <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img
-                                class="h-8" src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
-                        </div>
-                    @endauth
+                    <div class="absolute top-0 left-0 flex gap-2">
+                        {{-- Editar, eliminar y pausar curriculums --}}
+                        @if ($selectedCurriculum->type === 3)
+                            <a href="{{ route('curricula.teacher.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                        @else
+                            <a href="{{ route('curricula.student.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                        @endif
+                        @if ($selectedCurriculum->active === 1)
+                        <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                            src="{{ asset('img/pause.svg') }}" alt="Estatus curriculum"></button>
+                        @else
+                        <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                            src="{{ asset('img/play.svg') }}" alt="Estatus curriculum"></button>
+                        @endif
+
+                        <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                                src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
+                    </div>
+                @endauth
 
                     <div>
                         {{-- Programa Academico o Docente --}}
@@ -361,7 +377,8 @@
             ======================================== -->
                 <div wire:click="closePreview"
                     class="fixed bottom-5 md:bottom-10 right-5 md:right-10 bg-white shadow-md p-5 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer hover:scale-110 transition">
-                    <span class="text-gray-500"><i class="fas fa-times"></i></span></div>
+                    <span class="text-gray-500"><i class="fas fa-times"></i></span>
+                </div>
             </div>
 
         </div>

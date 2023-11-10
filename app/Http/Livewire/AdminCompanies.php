@@ -175,7 +175,7 @@ class AdminCompanies extends Component
         $linkedUsers = Curriculum::where('companies_id', $company->id)->get();
         if (count($linkedUsers) > 0) {
             // Emitir evento de mensaje de error
-            $this->emit('error_message', '¡Error al eliminar, borre los usuarios vinculados!');
+            $this->emit('error_message_alert', 'Para eliminar una empresa no debe de tener usuarios vinculados!');
             return;
         }
 
