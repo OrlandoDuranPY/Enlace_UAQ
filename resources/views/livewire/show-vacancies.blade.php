@@ -27,7 +27,8 @@
 
                             {{-- Puesto de trabajo --}}
                             <p class="text-base font-semibold truncate mb-2">{{ $vacancy->job_title }}</p>
-
+                            {{-- Horario --}}
+                            <p class="text-sm font-semibold mb-2 truncate">{{ $vacancy->schedule }}</p>
                             {{-- Salario --}}
                             <p class="text-gray-400 text-sm font-semibold mb-2 truncate">
                                 @if ($vacancy->salary)
@@ -37,8 +38,10 @@
                                 @endif
                             </p>
 
-                            {{-- Horario --}}
-                            <p class="text-sm font-semibold mb-2 truncate">Lunes a Viernes de 8:00 a 17:00</p>
+                            <p class="text-sm text-gray-400">
+                                {{ substr($vacancy->description, 0, 80) . (strlen($vacancy->description) > 100 ? '...' : '') }}
+                            </p>
+
 
 
                         </x-slot:cardInfo>
@@ -69,9 +72,10 @@
                 @auth
                     <div class="absolute top-0 left-0 flex gap-2">
                         {{-- Editar y eliminar Estudiantes --}}
-                        <a href="{{route('vacancies.update', $selectedVacancy->id)}}"><img class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
-                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8" src="{{ asset('img/delete.svg') }}"
-                                alt="Eliminar vacante"></button>
+                        <a href="{{ route('vacancies.update', $selectedVacancy->id) }}"><img class="h-8"
+                                src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
+                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8"
+                                src="{{ asset('img/delete.svg') }}" alt="Eliminar vacante"></button>
                     </div>
                 @endauth
 
@@ -83,8 +87,9 @@
             </div>
 
             {{-- Nombre del puesto --}}
-            <p class="text-2xl font-semibold">{{ $selectedVacancy->job_title }}</p>
-
+            <p class="text-3xl font-semibold">{{ $selectedVacancy->job_title }}</p>
+            {{-- Horario --}}
+            <p class="text-2xl font-semibold">{{ $selectedVacancy->schedule }}</p>
             <div class="space-y-2">
                 {{-- Ubicacion de la empresa --}}
                 <p class="text-xl font-semibold text-gray-400 truncate">{{ $selectedVacancy->location }}</p>
@@ -117,6 +122,19 @@
                     <p class="text-sm">{{ $selectedVacancy->observations }}</p>
                 </div>
             @endif
+
+            <!-- ========================================
+               Datos de contacto
+            ======================================== -->
+            <div>
+                <h2 class="text-2xl text-rojo font-bold">Contacto</h2>
+                <ul class="text-sm list-disc">
+                    {{-- Telefono --}}
+                    <li class="ml-5">{{ $selectedVacancy->phone }}° Semestre</li>
+                    {{-- Correo --}}
+                    <li class="ml-5">{{ $selectedVacancy->email }}° Semestre</li>
+                </ul>
+            </div>
         </x-lg-preview>
 
         {{-- Mostrar Preview en pantallas moviles --}}
@@ -129,9 +147,10 @@
                 @auth
                     <div class="absolute top-0 left-0 flex gap-2">
                         {{-- Editar y eliminar Estudiantes --}}
-                        <a href="{{route('vacancies.update', $selectedVacancy->id)}}"><img class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
-                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8" src="{{ asset('img/delete.svg') }}"
-                                alt="Eliminar vacante"></button>
+                        <a href="{{ route('vacancies.update', $selectedVacancy->id) }}"><img class="h-8"
+                                src="{{ asset('img/edit.svg') }}" alt="Editar vacante"></a>
+                        <button wire:click="$emit('deleteVacancyJS', {{ $selectedVacancy->id }})"><img class="h-8"
+                                src="{{ asset('img/delete.svg') }}" alt="Eliminar vacante"></button>
                     </div>
                 @endauth
 
@@ -143,7 +162,7 @@
             </div>
 
             {{-- Nombre del puesto --}}
-            <p class="text-xl md:text-2xl font-semibold">{{ $selectedVacancy->job_title }}</p>
+            <p class="text-2xl md:text-2xl font-semibold">{{ $selectedVacancy->job_title }}</p>
 
             <div class="space-y-2">
                 {{-- Ubicacion de la empresa --}}
@@ -156,6 +175,8 @@
                     <p class="text-gray-400 text-xl font-semibold">Salario pendiente</p>
                 @endif
 
+                {{-- Horario --}}
+                <p class="text-xl font-semibold text-gray-400">{{ $selectedVacancy->schedule }}</p>
             </div>
 
 
@@ -177,6 +198,19 @@
                     <p class="text-sm">{{ $selectedVacancy->observations }}</p>
                 </div>
             @endif
+
+            <!-- ========================================
+               Datos de contacto
+            ======================================== -->
+            <div>
+                <h2 class="text-xl text-rojo font-bold">Contacto</h2>
+                <ul class="text-sm list-disc">
+                    {{-- Telefono --}}
+                    <li class="ml-5">{{ $selectedVacancy->phone }}</li>
+                    {{-- Correo --}}
+                    <li class="ml-5">{{ $selectedVacancy->email }}</li>
+                </ul>
+            </div>
 
         </x-mobile-preview>
     @else

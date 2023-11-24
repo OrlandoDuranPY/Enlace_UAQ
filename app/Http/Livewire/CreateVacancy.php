@@ -16,8 +16,11 @@ class CreateVacancy extends Component
     public $location;
     public $job_title;
     public $salary;
+    public $schedule;
     public $description;
     public $observations;
+    public $phone;
+    public $email;
 
     /* ========================================
     Validacion de datos
@@ -29,8 +32,11 @@ class CreateVacancy extends Component
         // Datos de la vacante
         'job_title' => ['required', 'string', 'min:5', 'max:100'],
         'salary' => ['nullable', 'string', 'max:50'],
+        'schedule' => ['required', 'string', 'max:50'],
         'description' => ['required', 'min:10', 'max:1500'],
         'observations' => ['nullable', 'min:10', 'max:500'],
+        'phone' => ['required', 'numeric'],
+        'email' => ['required', 'email', 'max:255'],
     ];
 
     /* ========================================
@@ -46,8 +52,11 @@ class CreateVacancy extends Component
             'location' => $data['location'],
             'job_title' => $data['job_title'],
             'salary' => $data['salary'],
+            'schedule' => $data['schedule'],
             'description' => $data['description'],
-            'observations' => $data['observations']
+            'observations' => $data['observations'],
+            'phone' => $data['phone'],
+            'email' => $data['email']
         ]);
 
         // ID de la persona autenticada
@@ -68,8 +77,11 @@ class CreateVacancy extends Component
             'location',
             'job_title',
             'salary',
+            'schedule',
             'description',
-            'observations'
+            'observations',
+            'phone',
+            'email'
         ]);
 
     }

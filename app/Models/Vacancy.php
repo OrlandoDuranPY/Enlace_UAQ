@@ -14,7 +14,10 @@ class Vacancy extends Model
         'location',
         'job_title',
         'salary',
+        'schedule',
         'description',
-        'observations'
+        'observations',
+        'phone',
+        'email'
     ];
 }

@@ -39,9 +39,18 @@
                 {{-- Salario --}}
                 <div class="w-full">
                     <x-label for="salary">Salario</x-label>
-                    <x-text-input wire:model="salary" type="text" class="w-full" id="salary"
-                        :placeholder="'Ejemplo: $10,000 - $15,000 mensuales'" />
+                    <x-text-input wire:model="salary" type="text" class="w-full" id="salary" :placeholder="'Ejemplo: $10,000 - $15,000 mensuales'" />
                     <x-input-error :messages="$errors->get('salary')" class="mt-2" />
+                </div>
+            </x-grid-container>
+
+            <x-grid-container>
+                {{-- Horario --}}
+                <div class="w-full">
+                    <x-label for="schedule">Horario</x-label>
+                    <x-text-input wire:model="schedule" type="text" class="w-full" id="schedule"
+                        :placeholder="'Ejemplo: Lunes a Viérnes, 8:00 a.m. a 6:00 p.m.'" />
+                    <x-input-error :messages="$errors->get('schedule')" class="mt-2" />
                 </div>
             </x-grid-container>
 
@@ -58,11 +67,36 @@
             {{-- Observaciones --}}
             <div class="w-full">
                 <x-label for="observations">Observaciones</x-label>
-                <x-text-area wire:model="observations" class="w-full" id="observations" :placeholder="'Escriba puntos que quiera resaltar de la vacante'" wire:ignore />
+                <x-text-area wire:model="observations" class="w-full" id="observations" :placeholder="'Escriba puntos que quiera resaltar de la vacante'"
+                    wire:ignore />
                 <p class="text-right text-sm text-gray-300 font-semibold"><span id="observations_counter"
                         wire:ignore></span></p>
                 <x-input-error :messages="$errors->get('observations')" class="mt-2" />
             </div>
+
+        </div>
+
+        {{-- Datos de contacto --}}
+        <div>
+            <x-secondary-title>Datos de contacto</x-secondary-title>
+            {{-- Numero y correo --}}
+            <x-grid-container>
+                {{-- Telefono --}}
+                <div class="w-full">
+                    <x-label for="phone">Teléfono</x-label>
+                    <x-text-input wire:model="phone" type="text" class="w-full" id="phone"
+                        :placeholder="'Ingrese el teléfono de contacto'" />
+                    <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                </div>
+
+                {{-- Correo --}}
+                <div class="w-full">
+                    <x-label for="email">Correo</x-label>
+                    <x-text-input wire:model="email" type="email" class="w-full" id="email"
+                        :placeholder="'Ingrese el correo de contacto'" />
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+            </x-grid-container>
 
         </div>
 
@@ -71,8 +105,8 @@
 
     <script>
         /* ========================================
-                                        Contador de caracteres para textArea
-                                        ========================================= */
+                                            Contador de caracteres para textArea
+                                            ========================================= */
         document.addEventListener('livewire:load', function() {
             let aboutMeInput = document.getElementById('description');
             let aboutMeCounter = document.getElementById('description_counter');
@@ -86,7 +120,7 @@
                 updateCounter();
             });
 
-            observationsInput.addEventListener('input', function(){
+            observationsInput.addEventListener('input', function() {
                 updateCounter2();
             });
 

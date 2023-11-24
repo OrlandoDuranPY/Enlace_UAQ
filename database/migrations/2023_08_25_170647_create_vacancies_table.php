@@ -21,12 +21,15 @@ return new class extends Migration
             // Datos de la vacante
             $table->string('job_title');
             $table->string('salary');
+            $table->string('schedule');
             $table->text('description');
             $table->text('observations');
             /* ========================================
-            Activo o Desactivo
+            Datos de contacto
             ========================================= */
-            $table->boolean('active')->default(1);
+            $table->string('email');
+            $table->string('phone');
+            // $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
