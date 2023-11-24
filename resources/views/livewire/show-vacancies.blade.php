@@ -39,7 +39,7 @@
                             </p>
 
                             <p class="text-sm text-gray-400">
-                                {{ substr($vacancy->description, 0, 80) . (strlen($vacancy->description) > 100 ? '...' : '') }}
+                                {{ substr($vacancy->description, 0, 70) . (strlen($vacancy->description) > 100 ? '...' : '') }}
                             </p>
 
 

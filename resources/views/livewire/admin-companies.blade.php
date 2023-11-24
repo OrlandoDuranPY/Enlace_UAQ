@@ -152,7 +152,7 @@
                     <div class="modal-container bg-white w-4/5 mx-auto rounded shadow-lg z-50">
                         <!-- Contenido de la ventana modal -->
                         <div class="modal-content p-10">
-                            <x-secondary-title>Usuarios vinculados: {{count($linkedUsers)}}</x-secondary-title>
+                            <x-secondary-title>Usuarios vinculados: {{ count($linkedUsers) }}</x-secondary-title>
 
                             <x-data-table>
                                 <x-slot:search>
@@ -275,10 +275,6 @@
                                 Nombre
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Usuarios
-                            </th>
-
-                            <th scope="col" class="px-6 py-3">
                                 Acciones
                             </th>
                         </tr>
@@ -294,10 +290,6 @@
                                 <td class="px-6 py-4">
                                     {{ $company->name }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    0 (pendiente)
-                                </td>
-
                                 <td class="px-6 space-x-4">
                                     {{-- Boton para mostrar ventana modal para vincular usuarios --}}
                                     <button wire:click="showAddUserModal({{ $company->id }})"

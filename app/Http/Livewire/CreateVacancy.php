@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Activity;
+use App\Models\Company;
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -42,7 +43,8 @@ class CreateVacancy extends Component
     /* ========================================
     Crear Vacante y subirlo a la base de datos
     ========================================= */
-    public function createVacancy(){
+    public function createVacancy()
+    {
         // Validacion de datos
         $data = $this->validate();
 
@@ -58,6 +60,18 @@ class CreateVacancy extends Component
             'phone' => $data['phone'],
             'email' => $data['email']
         ]);
+
+        // Verificar que la empresa existe
+        $lowercaseCompany = strtolower($data['company']);
+        $companyExists = Company::where('name', strtolower($lowercaseCompany))->exists();
+
+        if (!$companyExists) {
+            // Crear la empresa si no existe
+            $capitalcaseCompany = ucwords(strtolower($lowercaseCompany));
+            Company::create([
+                'name' => $capitalcaseCompany,
+            ]);
+        }
 
         // ID de la persona autenticada
         $user_id = Auth::id();
@@ -83,7 +97,6 @@ class CreateVacancy extends Component
             'phone',
             'email'
         ]);
-
     }
 
     public function render()
