@@ -130,9 +130,9 @@
                 <h2 class="text-2xl text-rojo font-bold">Contacto</h2>
                 <ul class="text-sm list-disc">
                     {{-- Telefono --}}
-                    <li class="ml-5">{{ $selectedVacancy->phone }}° Semestre</li>
+                    <li class="ml-5">{{ $selectedVacancy->phone }}</li>
                     {{-- Correo --}}
-                    <li class="ml-5">{{ $selectedVacancy->email }}° Semestre</li>
+                    <li class="ml-5">{{ $selectedVacancy->email }}</li>
                 </ul>
             </div>
         </x-lg-preview>
