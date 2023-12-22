@@ -155,7 +155,16 @@ class ShowCurricula extends Component
         busqueda: $user
         ========================================= */
             ->when(!$this->term && $this->user, function ($query) {
-                $query->where('type', $this->user);
+                // Buscar curriculums inactivos
+                if($this->user != 4){
+                    // dd('Type '. $this->user);
+                    $query->where('type', $this->user);
+                }
+                else{
+                    // dd('Inactivos');
+                    $query->where('active', 0);
+                }
+
             })
             ->latest()->get();
 

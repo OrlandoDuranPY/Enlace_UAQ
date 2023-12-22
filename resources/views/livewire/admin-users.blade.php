@@ -61,11 +61,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        <!-- Botón de cerrar modal -->
-                        {{-- <div class="modal-footer p-4">
-                            <button wire:click="closeModal" class="text-blue-500 hover:underline">Cerrar</button>
-                        </div> --}}
                     </div>
                 </div>
             @endif
@@ -110,9 +105,6 @@
                             <th scope="col" class="px-6 py-3">
                                 Acciones
                             </th>
-                            {{-- <th scope="col" class="px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                            </th> --}}
                         </tr>
                     </thead>
                 </x-slot:thead>
@@ -133,7 +125,7 @@
                                     {{ $user->rol }}
                                 </td>
                                 <td class="px-6">
-                                    @if (Auth::user()->id !== $user->id)
+                                    @if (Auth::user()->id !== $user->id && $user->rol !== 'super_admin')
                                     <button wire:click="$emit('deleteUserJS', {{ $user->id }})" class="px-4 py-2 bg-rojo text-white font-semibold rounded-lg" type="button"><i class="fa-solid fa-trash-can"></i></button>
                                     @endif
                                 </td>
@@ -151,8 +143,10 @@
                     @endforelse
 
                 </x-slot:tbody>
+
                 <x-slot:links class="mt-4 bg-red-500">
-                    {{ $users->links() }}
+                    {{-- {{ $users->links() }} --}}
+                    Links
                 </x-slot:links>
             </x-data-table>
         </div>

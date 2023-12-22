@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Livewire.on("statusCurriculumJS", (curriculum_id) => {
         Swal.fire({
             title: "¿Quieres cambiar el estado curriculum?",
-            text: "¡Esta acción no puede ser revertida!",
+            text: "¡La visibilidad del curriculum cambiará!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#7AD8DB",

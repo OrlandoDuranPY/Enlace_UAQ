@@ -16,6 +16,7 @@
                 <option class="b-gris" value="1">Estudiantes</option>
                 <option class="b-gris" value="2">Egresados</option>
                 <option class="b-gris" value="3">Docentes</option>
+                <option class="b-gris" value="4">Inactivos</option>
             </x-select>
 
             {{-- Submit --}}
@@ -42,6 +43,7 @@
             <option class="b-gris" value="1">Estudiantes</option>
             <option class="b-gris" value="2">Egresados</option>
             <option class="b-gris" value="3">Docentes</option>
+            <option class="b-gris" value="4">Inactivos</option>
         </x-select>
 
         {{-- Submit --}}

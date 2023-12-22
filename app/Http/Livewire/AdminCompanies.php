@@ -27,8 +27,7 @@ class AdminCompanies extends Component
     public $selectedCompany;
     protected $listeners = ['deleteCompany', 'unlinkUser'];
 
-    public function updatingSearch()
-    {
+    public function updatingSearch(){
         $this->resetPage();
     }
 

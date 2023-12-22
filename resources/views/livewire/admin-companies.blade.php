@@ -120,7 +120,7 @@
 
                                 </x-slot:tbody>
                                 <x-slot:links class="mt-4 bg-red-500">
-                                    {{ $companies->links() }}
+                                    {{ $curricula->links() }}
                                 </x-slot:links>
                             </x-data-table>
                             <!-- Modal footer -->
