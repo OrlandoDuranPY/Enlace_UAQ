@@ -153,15 +153,15 @@ class ShowCurricula extends Component
             ->when($this->term && !$this->user, function ($query) {
                 $query->where(function ($query) {
                     $term = '%' . strtolower($this->term) . '%';
-                    $query->whereRaw('LOWER(name) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(last_name) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(about_me) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(semester) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(academic_achievements) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(study_level) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(experience) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(projects) LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(degree) LIKE ?', [$term]);
+                    $query->whereRaw('LOWER(\"name\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"last_name\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"about_me\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"semester\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"academic_achievements\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"study_level\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"experience\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"projects\") LIKE ?', [$term])
+                        ->orWhereRaw('LOWER(\"degree\") LIKE ?', [$term]);
                 })
                 ->orWhereHas('academicProgram', function ($query) {
                     $query->where('name', 'LIKE', '%' . $this->term . '%');
