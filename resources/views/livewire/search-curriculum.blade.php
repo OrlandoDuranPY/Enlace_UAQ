@@ -6,8 +6,7 @@
         wire:submit.prevent='readFilterTerms'>
 
         {{-- Buscador  --}}
-        <x-text-input class="w-full lg:w-5/12" type="text" wire:model="term" :value="old('term')"
-            placeholder="Buscar..." />
+        <x-text-input class="w-full lg:w-5/12" type="text" wire:model="term" :value="old('term')" placeholder="Buscar..." />
 
         <div class="grid grid-cols-2 gap-4">
             {{-- Filtros de busqueda --}}
@@ -16,7 +15,9 @@
                 <option class="b-gris" value="1">Estudiantes</option>
                 <option class="b-gris" value="2">Egresados</option>
                 <option class="b-gris" value="3">Docentes</option>
-                <option class="b-gris" value="4">Inactivos</option>
+                @auth
+                    <option class="b-gris" value="4">Inactivos</option>
+                @endauth
             </x-select>
 
             {{-- Submit --}}
@@ -43,7 +44,9 @@
             <option class="b-gris" value="1">Estudiantes</option>
             <option class="b-gris" value="2">Egresados</option>
             <option class="b-gris" value="3">Docentes</option>
-            <option class="b-gris" value="4">Inactivos</option>
+            @auth
+                <option class="b-gris" value="4">Inactivos</option>
+            @endauth
         </x-select>
 
         {{-- Submit --}}
