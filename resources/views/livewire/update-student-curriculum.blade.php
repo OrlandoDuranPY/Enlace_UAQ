@@ -41,7 +41,7 @@
             <div class="w-full">
                 <x-label for="about_me">Acerca de mi</x-label>
                 <x-text-area wire:model="about_me" class="w-full" id="about_me" :placeholder="'Ingrese una breve descripción del estudiante'" wire:ignore />
-                <p class="text-right text-sm text-gray-300 font-semibold"><span id="about_me_counter" wire:ignore></span></p>                
+                <p class="text-right text-sm text-gray-300 font-semibold"><span id="about_me_counter" wire:ignore></span></p>
                 <x-input-error :messages="$errors->get('about_me')" class="mt-2" />
             </div>
         </div>
@@ -237,7 +237,7 @@
             </x-grid-container>
         </div>
 
-        <x-primary-button class="block mx-auto">Finalizar registro</x-primary-button>
+        <x-primary-button class="block mx-auto">Actualizar registro</x-primary-button>
     </form>
 
     <script>
@@ -247,13 +247,13 @@
         document.addEventListener('livewire:load', function () {
             var aboutMeInput = document.getElementById('about_me');
             var aboutMeCounter = document.getElementById('about_me_counter');
-    
+
             updateCounter();
-    
+
             aboutMeInput.addEventListener('input', function () {
                 updateCounter();
             });
-    
+
             function updateCounter() {
                 var length = aboutMeInput.value.length;
                 aboutMeCounter.textContent = length + "/500";
@@ -261,7 +261,7 @@
             }
         });
     </script>
-    
-    
+
+
 
 </x-container>

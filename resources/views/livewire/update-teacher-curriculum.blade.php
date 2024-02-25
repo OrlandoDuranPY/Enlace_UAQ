@@ -216,7 +216,7 @@
             </x-grid-container>
         </div>
 
-        <x-primary-button class="block mx-auto">Finalizar registro</x-primary-button>
+        <x-primary-button class="block mx-auto">Actualizar registro</x-primary-button>
     </form>
 
     <script>
