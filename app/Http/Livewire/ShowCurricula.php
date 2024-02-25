@@ -129,47 +129,51 @@ class ShowCurricula extends Component
         Buscar cuando se usa solo el filtro de
         busqueda: $term
         ========================================= */
-            // ->when($this->term && !$this->user, function ($query) {
-            //     $query->where(function ($query) {
-            //         $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(about_me) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             //   ->orWhereRaw('studyProgram_id', 'LIKE', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(semester) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(academic_achievements) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             //   ->orWhereRaw('academicProgram_id', 'LIKE', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(study_level) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(experience) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(projects) LIKE ?', ['%' . strtolower($this->term) . '%'])
-            //             ->orWhereRaw('LOWER(degree) LIKE ?', ['%' . strtolower($this->term) . '%']);
-            //     })
-            //         ->orWhereHas('academicProgram', function ($query) {
-            //             $query->where('name', 'LIKE', '%' . $this->term . '%');
-            //         })
-            //         ->orWhereHas('studyProgram', function ($query) {
-            //             $query->where('name', 'LIKE', '%' . $this->term . '%');
-            //         });
-            // })
-            ->when($this->term && !$this->user, function ($query) {
-                $query->where(function ($query) {
-                    $term = '%' . strtolower($this->term) . '%';
-                    $query->whereRaw('LOWER(\"name\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"last_name\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"about_me\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"semester\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"academic_achievements\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"study_level\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"experience\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"projects\") LIKE ?', [$term])
-                        ->orWhereRaw('LOWER(\"degree\") LIKE ?', [$term]);
-                })
+        // Buscador para MySQL
+        // ->when($this->term && !$this->user, function ($query) {
+        //     $query->where(function ($query) {
+        //         $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(about_me) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             //   ->orWhereRaw('studyProgram_id', 'LIKE', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(semester) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(academic_achievements) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             //   ->orWhereRaw('academicProgram_id', 'LIKE', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(study_level) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(experience) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(projects) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(degree) LIKE ?', ['%' . strtolower($this->term) . '%']);
+        //     })
+        //         ->orWhereHas('academicProgram', function ($query) {
+        //             $query->where('name', 'LIKE', '%' . $this->term . '%');
+        //         })
+        //         ->orWhereHas('studyProgram', function ($query) {
+        //             $query->where('name', 'LIKE', '%' . $this->term . '%');
+        //         });
+        // })
+
+        //Buscador para Postgresql
+        ->when($this->term && !$this->user, function ($query) {
+            $query->where(function ($query) {
+                $query->whereRaw('name ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('last_name ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('about_me ILIKE ?', ['%' . $this->term . '%'])
+                    //   ->orWhereRaw('studyProgram_id', 'LIKE', ['%' . $this->term) . '%'])
+                    ->orWhereRaw('semester ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('academic_achievements ILIKE ?', ['%' . $this->term . '%'])
+                    //   ->orWhereRaw('academicProgram_id', 'LIKE', ['%' . $this->term) . '%'])
+                    ->orWhereRaw('study_level ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('experience ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('projects ILIKE ?', ['%' . $this->term . '%'])
+                    ->orWhereRaw('degree ILIKE ?', ['%' . $this->term . '%']);
+            })
                 ->orWhereHas('academicProgram', function ($query) {
-                    $query->where('name', 'LIKE', '%' . $this->term . '%');
+                    $query->where('name ILIKE ?', ['%' . $this->term . '%']);
                 })
                 ->orWhereHas('studyProgram', function ($query) {
-                    $query->where('name', 'LIKE', '%' . $this->term . '%');
+                    $query->where('name', 'ILIKE ?', ['%' . $this->term . '%']);
                 });
-            })
+        })
 
             /* ========================================
         Buscar cuando se usa solo el filtro de
