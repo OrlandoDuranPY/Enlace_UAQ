@@ -105,6 +105,28 @@ class ShowCurricula extends Component
         busqueda: $term y $user
         ========================================= */
         // Filtro para MySQL
+        // $curricula = Curriculum::when($this->term && $this->user, function ($query) {
+        //     $query->where(function ($query) {
+        //         $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(about_me) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(semester) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(academic_achievements) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(study_level) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(experience) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(projects) LIKE ?', ['%' . strtolower($this->term) . '%'])
+        //             ->orWhereRaw('LOWER(degree) LIKE ?', ['%' . strtolower($this->term) . '%']);
+        //     })
+        //         ->where('type', $this->user)
+        //         ->orWhereHas('academicProgram', function ($query) {
+        //             $query->where('name', 'LIKE', '%' . $this->term . '%');
+        //         })
+        //         ->orWhereHas('studyProgram', function ($query) {
+        //             $query->where('name', 'LIKE', '%' . $this->term . '%');
+        //         });
+        // })
+
+        // Filtro para Postgresql
         $curricula = Curriculum::when($this->term && $this->user, function ($query) {
             $query->where(function ($query) {
                 $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->term) . '%'])
@@ -117,14 +139,15 @@ class ShowCurricula extends Component
                     ->orWhereRaw('LOWER(projects) LIKE ?', ['%' . strtolower($this->term) . '%'])
                     ->orWhereRaw('LOWER(degree) LIKE ?', ['%' . strtolower($this->term) . '%']);
             })
-                ->where('type', $this->user)
-                ->orWhereHas('academicProgram', function ($query) {
-                    $query->where('name', 'LIKE', '%' . $this->term . '%');
-                })
-                ->orWhereHas('studyProgram', function ($query) {
-                    $query->where('name', 'LIKE', '%' . $this->term . '%');
-                });
+            ->where('type', $this->user)
+            ->orWhereHas('academicProgram', function ($query) {
+                $query->where('name', 'ILIKE', '%' . $this->term . '%'); // Cambio LIKE por ILIKE
+            })
+            ->orWhereHas('studyProgram', function ($query) {
+                $query->where('name', 'ILIKE', '%' . $this->term . '%'); // Cambio LIKE por ILIKE
+            });
         })
+
 
 
             /* ========================================
