@@ -150,6 +150,7 @@ class ShowCurricula extends Component
 
 
 
+
             /* ========================================
         Buscar cuando se usa solo el filtro de
         busqueda: $term
