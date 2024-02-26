@@ -131,7 +131,7 @@ class ShowCurricula extends Component
         Buscar cuando se usa solo el filtro de
         busqueda: $term
         ========================================= */
-        // Buscador para MySQL
+        // Filtro para MySQL
         ->when($this->term && !$this->user, function ($query) {
             $query->where(function ($query) {
                 $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($this->term) . '%'])
