@@ -96,7 +96,7 @@ class CreateStudentCurriculum extends Component
     public function createCurriculum()
     {
         // Asignar el tipo de usuario (estudiante/egresado)
-        if ($this->semester === 10) {
+        if ($this->semester == 10) {
             $this->type = 2;
         } else {
             $this->type = 1;
@@ -124,18 +124,15 @@ class CreateStudentCurriculum extends Component
 
         // ID de la persona autenticada
         $user_id = Auth::id();
-        // ID del curriculum
-        $curriculum_id = $curriculum->id;
 
         // Crear una nueva accion en la tabla historial
         Activity::create([
-            'name' => 'Agregó curriculum estudiante',
+            'name' => 'Agregó el curriculum de: '. $data['name'].' '.$data['last_name'],
             'users_id' => $user_id,
-            'curricula_id' => $curriculum_id
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('curriculum_success', '¡Curriculum creado exitosamente!');
+        $this->emit('create_success', '¡Curriculum creado exitosamente!');
 
         // Resetear el formulario
         $this->reset([

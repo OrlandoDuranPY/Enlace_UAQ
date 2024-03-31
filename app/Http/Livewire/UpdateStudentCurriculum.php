@@ -213,7 +213,7 @@ class UpdateStudentCurriculum extends Component
     ========================================= */
     public function updateCurriculum()
     {
-        //Asignar el tipo de usuario (estudiante/egresado)
+        //Asignar el tipo de usuario (estudiante: 1/egresado: 2)
         if ($this->semester == 10) {
             $this->type = 2;
         } else {
@@ -253,13 +253,12 @@ class UpdateStudentCurriculum extends Component
 
         // Crear una nueva accion en la tabla de Actividades
         Activity::create([
-            'name' => 'Actualizó curriculum estudiante',
+            'name' => 'Actualizó el curriculum de: '. $data['name'].' '.$data['last_name'],
             'users_id' => $user_id,
-            'curricula_id' => $curriculum_id
         ]);
 
         // Emitir evento de mensaje de exito
-        $this->emit('curriculum_update_success', '¡Curriculum actualizado exitosamente!');
+        $this->emit('update_success', '¡Curriculum actualizado exitosamente!');
 
         // Resetear el formulario
         $this->reset([

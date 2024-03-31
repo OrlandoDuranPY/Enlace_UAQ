@@ -19,16 +19,30 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('admin')->default(0); // Usuario normal: 0, Admin: 1
+            $table->string('rol')->default('user'); // Roles: super_admin, admin, user
             $table->rememberToken();
             $table->timestamps();
         });
 
         DB::table('users')->insert([
+            'name' => 'Super Admin',
+            'email' => 'super_admin_enlace@email.com',
+            'password' => Hash::make('SuperAdminEnlace'),
+            'rol' => 'super_admin',
+        ]);
+
+        DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'admin_enlace@email.com',
             'password' => Hash::make('AdminEnlace'),
-            'admin' => '1',
+            'rol' => 'admin',
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'User',
+            'email' => 'user_enlace@email.com',
+            'password' => Hash::make('UserEnlace'),
+            'rol' => 'user',
         ]);
     }
 

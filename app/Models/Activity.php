@@ -11,14 +11,19 @@ class Activity extends Model
     protected $fillable = [
         'name',
         'users_id',
-        'curricula_id'
+        'curricula_id',
+        'vacancies_id',
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function curriculum(){
         return $this->belongsTo(Curriculum::class);
+    }
+
+    public function vacancy(){
+        return $this->belongsTo(Vacancy::class);
     }
 }

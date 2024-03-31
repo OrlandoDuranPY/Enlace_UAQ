@@ -26,13 +26,13 @@
     <!-- ========================================
        Contenido
     ======================================== -->
-    <div class="h-screen px-10 lg:px-0 lg:w-6/12 mx-auto flex items-center justify-center flex-col">
-        <img src="{{ asset('img/logo-color.svg') }}" class="mb-10 h-28" alt="Logo Enlace">
+    <div class="h-screen lg:w-6/12 mx-auto flex items-center justify-center flex-col">
+        <img src="{{ asset('img/logo-color.svg') }}" class="mb-2 h-28" alt="Logo Enlace">
+        <h3 class="w-5/6 text-center lg:w-full mb-10 text-gris-texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor sapien.</h3>
         <!-- ========================================
            Formulario de buscador
         ======================================== -->
-        {{-- <livewire:filtrar-curriculums/> --}}
-
+            <livewire:home-searchbar>
     </div>
 
     @livewireScripts

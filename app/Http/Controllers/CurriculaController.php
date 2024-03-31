@@ -36,4 +36,13 @@ class CurriculaController extends Controller
     public function createTeacherCurriculum(){
         return view('curricula.teacher.create');
     }
+
+    /* ========================================
+    Editar curriculum de Docente
+    ========================================= */
+    public function updateTeacherCurriculum(Curriculum $curriculum){
+        return view('curricula.teacher.update', [
+            'curriculum' => $curriculum
+        ]);
+    }
 }

@@ -8,63 +8,125 @@
         <livewire:search-curriculum class="md:w-full" />
         <h1 class="font-semibold text-xl md:text-2xl uppercase">Curriculums</h1>
         {{-- Grid de Curriculumns --}}
-            <div class=" box-border pb-10 lg:pb-0 h-4/5 lg:h-5/6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ">
-                {{-- Contenedor de tarjetas / GRID  --}}
-                <div class="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 box-border pr-2 p-1">
+        <div class=" box-border pb-10 lg:pb-0 h-4/5 lg:h-5/6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 ">
+            {{-- Contenedor de tarjetas / GRID  --}}
+            <div class="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 box-border pr-2 p-1">
 
                 @forelse ($curricula as $curriculum)
-                    <!-- ========================================
-                   Tarjeta
-                ======================================== -->
-                    <div wire:click='showCurriculum({{ $curriculum->id }})'
-                        class="h-auto md:h-60 box-border shadow-md rounded-lg overflow-hidden bg-gris-tarjeta relative cursor-pointer
-                        {{ $selectedCard == $curriculum->id ? 'ring-2 ring-rojo' : '' }}">
-                        <div class="  px-4 pb-12 md:pb-3 pt-3">
-                            <!-- ========================================
-                           Programa academico
-                        ======================================== -->
-                            @if ($curriculum->academic_programs_id)
-                                <p class="text-right font-semibold text-gray-400 mb-2 truncate">
-                                    {{ $curriculum->academicProgram->name }}</p>
-                            @else
-                                <p class="text-right font-semibold text-gray-400 mb-2 truncate">Docente</p>
-                            @endif
+                    @if ($curriculum->active == 0)
+                        <!-- ========================================
+                       Curriculums inactivos
+                    ======================================== -->
+                        @auth
 
-                            <!-- ========================================
-                           Nombre
-                        ======================================== -->
-                            <h2 class="text-base font-semibold truncate"> {{ $curriculum->name }}
-                                {{ $curriculum->last_name }}</h2>
 
-                            <!-- ========================================
-                        Rol/Titulo Principal
-                        ======================================== -->
-                            @if ($curriculum->semester >= 1 && $curriculum->semester <= 9)
-                                <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Estudiante</p>
-                            @elseif($curriculum->semester == 10)
-                                <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Egresado</p>
-                            @else
-                                <p class="text-gray-400 text-sm font-semibold mb-2 truncate">{{ $curriculum->degree }}
-                                </p>
-                            @endif
-
-                            <!-- ========================================
-                           Experiencia
-                        ======================================== -->
-                            <h3 class="text-base font-semibold">Experiencia</h3>
-                            <ul class="text-sm list-disc truncate">
-                                @foreach (json_decode($curriculum->experience) as $key => $experience)
-                                    @if ($key < 3)
-                                        <li class="ml-5 text-gray-400">{{ Str::limit($experience, 25) }}</li>
+                            <div wire:click='showCurriculum({{ $curriculum->id }})'
+                                class="h-auto md:h-60 box-border shadow-md rounded-lg overflow-hidden bg-gris-tarjeta relative cursor-pointer
+                        {{ $selectedCard == $curriculum->id ? 'ring-2 ring-rojo' : '' }} opacity-30">
+                                <div class="  px-4 pb-12 md:pb-3 pt-3">
+                                    <!-- ========================================
+                               Programa academico
+                            ======================================== -->
+                                    @if ($curriculum->academic_programs_id)
+                                        <p class="text-right font-semibold text-gray-400 mb-2 truncate">
+                                            {{ $curriculum->academicProgram->name }}</p>
+                                    @else
+                                        <p class="text-right font-semibold text-gray-400 mb-2 truncate">Docente</p>
                                     @endif
-                                @endforeach
-                            </ul>
-                        </div>
 
-                        <div class="bg-verde text-center text-white font-semibold py-1 absolute bottom-0 w-full">
-                            <p>Ver CV</p>
+                                    <!-- ========================================
+                               Nombre
+                            ======================================== -->
+                                    <h2 class="text-base font-semibold truncate"> {{ $curriculum->name }}
+                                        {{ $curriculum->last_name }}</h2>
+
+                                    <!-- ========================================
+                            Rol/Titulo Principal
+                            ======================================== -->
+                                    @if ($curriculum->semester >= 1 && $curriculum->semester <= 9)
+                                        <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Estudiante</p>
+                                    @elseif($curriculum->semester == 10)
+                                        <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Egresado</p>
+                                    @else
+                                        <p class="text-gray-400 text-sm font-semibold mb-2 truncate">
+                                            {{ $curriculum->degree }}
+                                        </p>
+                                    @endif
+
+                                    <!-- ========================================
+                               Experiencia
+                            ======================================== -->
+                                    <h3 class="text-base font-semibold">Experiencia</h3>
+                                    <ul class="text-sm list-disc truncate">
+                                        @foreach (json_decode($curriculum->experience) as $key => $experience)
+                                            @if ($key < 3)
+                                                <li class="ml-5 text-gray-400">{{ Str::limit($experience, 25) }}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+
+                                <div class="bg-verde text-center text-white font-semibold py-1 absolute bottom-0 w-full">
+                                    <p>Ver CV</p>
+                                </div>
+                            </div>
+                        @endauth
+                    @else
+                        <!-- ========================================
+                   Curriculums activos
+                ======================================== -->
+                        <div wire:click='showCurriculum({{ $curriculum->id }})'
+                            class="h-auto md:h-60 box-border shadow-md rounded-lg overflow-hidden bg-gris-tarjeta relative cursor-pointer
+                    {{ $selectedCard == $curriculum->id ? 'ring-2 ring-rojo' : '' }}">
+                            <div class="  px-4 pb-12 md:pb-3 pt-3">
+                                <!-- ========================================
+                       Programa academico
+                    ======================================== -->
+                                @if ($curriculum->academic_programs_id)
+                                    <p class="text-right font-semibold text-gray-400 mb-2 truncate">
+                                        {{ $curriculum->academicProgram->name }}</p>
+                                @else
+                                    <p class="text-right font-semibold text-gray-400 mb-2 truncate">Docente</p>
+                                @endif
+
+                                <!-- ========================================
+                       Nombre
+                    ======================================== -->
+                                <h2 class="text-base font-semibold truncate"> {{ $curriculum->name }}
+                                    {{ $curriculum->last_name }}</h2>
+
+                                <!-- ========================================
+                    Rol/Titulo Principal
+                    ======================================== -->
+                                @if ($curriculum->semester >= 1 && $curriculum->semester <= 9)
+                                    <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Estudiante</p>
+                                @elseif($curriculum->semester == 10)
+                                    <p class="text-gray-400 text-sm font-semibold mb-2 truncate">Egresado</p>
+                                @else
+                                    <p class="text-gray-400 text-sm font-semibold mb-2 truncate">
+                                        {{ $curriculum->degree }}
+                                    </p>
+                                @endif
+
+                                <!-- ========================================
+                       Experiencia
+                    ======================================== -->
+                                <h3 class="text-base font-semibold">Experiencia</h3>
+                                <ul class="text-sm list-disc truncate">
+                                    @foreach (json_decode($curriculum->experience) as $key => $experience)
+                                        @if ($key < 3)
+                                            <li class="ml-5 text-gray-400">{{ Str::limit($experience, 25) }}</li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="bg-verde text-center text-white font-semibold py-1 absolute bottom-0 w-full">
+                                <p>Ver CV</p>
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
                 @empty
                     <p class="absolute text-gris-texto">No hay curriculums por mostrar</p>
                 @endforelse
@@ -90,16 +152,24 @@
                 {{-- Botones de Accion --}}
                 @auth
                     <div class="absolute top-0 left-0 flex gap-2">
-                        {{-- Editar y eliminar Estudiantes --}}
+                        {{-- Editar, eliminar y pausar curriculums --}}
                         @if ($selectedCurriculum->type === 3)
-                            <a href="#"><img
-                                    class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                            <a href="{{ route('curricula.teacher.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                         @else
-                            <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
-                                    class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
+                            <a href="{{ route('curricula.student.update', $selectedCurriculum->id) }}"><img class="h-8"
+                                    src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                         @endif
-                        <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img
-                            class="h-8" src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
+                        @if ($selectedCurriculum->active === 1)
+                            <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img
+                                    class="h-8" src="{{ asset('img/pause.svg') }}" alt="Estatus curriculum"></button>
+                        @else
+                            <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img
+                                    class="h-8" src="{{ asset('img/play.svg') }}" alt="Estatus curriculum"></button>
+                        @endif
+
+                        <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img class="h-8"
+                                src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
                     </div>
                 @endauth
 
@@ -133,7 +203,7 @@
             ======================================== -->
             <div>
                 <h2 class="text-2xl text-rojo font-bold">Acerca de mí</h2>
-                <p class="text-justify text-sm">{{ $selectedCurriculum->about_me }}</p>
+                <p class="text-sm">{{ $selectedCurriculum->about_me }}</p>
             </div>
 
             <!-- ========================================
@@ -165,7 +235,7 @@
                EXperiencia
             ======================================== -->
             <div>
-                <h2 class="text-xl lg:text-3xl text-rojo font-bold">Experiencia</h2>
+                <h2 class="text-2xl text-rojo font-bold">Experiencia</h2>
                 <ul class="text-sm list-disc">
                     @foreach (json_decode($selectedCurriculum->experience) as $experience)
                         <li class="ml-5">{{ $experience }}</li>
@@ -230,16 +300,27 @@
                     {{-- Botones de Accion --}}
                     @auth
                         <div class="absolute top-0 left-0 flex gap-2">
-                            {{-- Editar y eliminar Estudiantes --}}
+                            {{-- Editar, eliminar y pausar curriculums --}}
                             @if ($selectedCurriculum->type === 3)
-                                <a href="#"><img
+                                <a href="{{ route('curricula.teacher.update', $selectedCurriculum->id) }}"><img
                                         class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                             @else
-                                <a href="{{route('curricula.student.update', $selectedCurriculum->id)}}"><img
+                                <a href="{{ route('curricula.student.update', $selectedCurriculum->id) }}"><img
                                         class="h-8" src="{{ asset('img/edit.svg') }}" alt="Editar curriculum"></a>
                             @endif
+                            @if ($selectedCurriculum->active === 1)
+                                <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img
+                                        class="h-8" src="{{ asset('img/pause.svg') }}"
+                                        alt="Estatus curriculum"></button>
+                            @else
+                                <button wire:click="$emit('statusCurriculumJS', {{ $selectedCurriculum->id }})"><img
+                                        class="h-8" src="{{ asset('img/play.svg') }}"
+                                        alt="Estatus curriculum"></button>
+                            @endif
+
                             <button wire:click="$emit('deleteCurriculumJS', {{ $selectedCurriculum->id }})"><img
-                                class="h-8" src="{{ asset('img/delete.svg') }}" alt="Eliminar curriculum"></button>
+                                    class="h-8" src="{{ asset('img/delete.svg') }}"
+                                    alt="Eliminar curriculum"></button>
                         </div>
                     @endauth
 
@@ -359,9 +440,10 @@
                 <!-- ========================================
                Boton para cerrar el curriculum
             ======================================== -->
-                <div wire:click="closeCurriculum"
+                <div wire:click="closePreview"
                     class="fixed bottom-5 md:bottom-10 right-5 md:right-10 bg-white shadow-md p-5 rounded-full w-5 h-5 flex items-center justify-center cursor-pointer hover:scale-110 transition">
-                    <span class="text-gray-500"><i class="fas fa-times"></i></span></div>
+                    <span class="text-gray-500"><i class="fas fa-times"></i></span>
+                </div>
             </div>
 
         </div>
